@@ -26,4 +26,12 @@ public class Board {
             }
         }
     }
+
+    public Piece[] getBoard() {
+        return board;
+    }
+
+    public void setBoard(Piece[] board) {
+        this.board = board;
+    }
 }
