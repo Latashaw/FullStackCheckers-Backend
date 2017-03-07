@@ -8,7 +8,8 @@ public interface WhiteMove {
     default int northWestSimpleMove(int start) {
         checkNorthSimpleMove(start);
         
-        if (start < 4 || (start % 4 == 0 && (start / 4) % 2 != 0)) {
+        if (start < 4
+            || (start % 4 == 0 && (start / 4) % 2 != 0)) {
             return -1;
         } else if ((start / 4) % 2 == 0) {
             return start - 4;
@@ -20,7 +21,8 @@ public interface WhiteMove {
     default int northEastSimpleMove(int start) {
         checkNorthSimpleMove(start);
         
-        if (start < 4 || ((start + 1) % 4 == 0 && ((start + 1) / 4) % 2 == 0)) {
+        if (start < 4
+            || (((start + 1) % 4 == 0 && ((start + 1) / 4) % 2 != 0))) {
             return -1;
         } else if ((start / 4) % 2 == 0) {
             return start - 3;
@@ -46,35 +48,4 @@ public interface WhiteMove {
             throw new IndexOutOfBoundsException();
         }
     }
-    
-    // default int[] northMoves(int i) {
-    //     if (i < 4 || i > 31) {
-    //         throw new IndexOutOfBoundsException();
-    //     }
-    //     int[] p;
-    //
-    //     if ((i / 4) % 2 == 0) {
-    //         if ((i + 1) % 4 == 0) {
-    //             p = new int[1];
-    //             p[0] = i - 4;
-    //             return p;
-    //         } else {
-    //             p = new int[2];
-    //             p[0] = i - 4;
-    //             p[1] = i - 3;
-    //             return p;
-    //         }
-    //     } else {
-    //         if (i % 4 == 0) {
-    //             p = new int[1];
-    //             p[0] = i -4;
-    //             return p;
-    //         } else {
-    //             p = new int[2];
-    //             p[0] = i - 5;
-    //             p[1] = i - 4;
-    //             return p;
-    //         }
-    //     }
-    // }
 }
