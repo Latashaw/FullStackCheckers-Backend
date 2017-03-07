@@ -3,6 +3,7 @@ package stg.model;
 import stg.model.piece.BlackMan;
 import stg.model.piece.Empty;
 import stg.model.piece.Piece;
+import stg.model.piece.WhiteMan;
 
 import java.util.HashMap;
 
@@ -28,13 +29,40 @@ public class Game {
         return board;
         }
 
-    public void findAllMoveablePieces(Board board) {
+    public int[] findAllMoveableBlackMen(Board board) {
+        int[] moveable = new int[];
+        int counter = 0;
         for(int i = 1; i <= 32; i++) {
-            if(board.checkPosition(i))
+            if (board.checkPosition(i))
                 continue;
             BlackMan blackMan;
-            if(board.getGameState().get(i) instanceof BlackMan)
+            if (board.getGameState().get(i) instanceof BlackMan) {
                 blackMan = (BlackMan) board.getGameState().get(i);
+                if (blackMan.southEastJumpMove(i) != -1 || blackMan.southEastSimpleMove(i) != -1 || blackMan.southWestJumpMove(i) != -1 || blackMan.southWestSimpleMove(i) != -1) {
+                    moveable[counter] = i;
+                    counter++;
+                }
+            }
         }
+        return moveable;
+    }
+
+    public int[] findAllMoveableWhiteMen(Board board) {
+        int[] moveable = new int[];
+        int counter = 0;
+        for(int i = 1; i <= 32; i++) {
+            if (board.checkPosition(i))
+                continue;
+            WhiteMan whiteMan;
+            if (board.getGameState().get(i) instanceof WhiteMan) {
+                whiteMan = (WhiteMan) board.getGameState().get(i);
+                if (board.checkPosition(whiteMan.northEastJumpMove(i)) || board.checkPosition(whiteMan.northEastSimpleMove(i))||
+                        board.checkPosition(whiteMan.northWestJumpMove(i))|| board.checkPosition(whiteMan.northWestSimpleMove(i))) {
+                    moveable[counter] = i;
+                    counter++;
+                }
+            }
+        }
+        return moveable;
     }
 }
