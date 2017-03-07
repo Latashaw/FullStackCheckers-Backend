@@ -32,4 +32,7 @@ public class Board {
         }
     }
 
+    public boolean checkPosition (int position) {
+        return gameState.get(position) == Empty;
+    }
 }
