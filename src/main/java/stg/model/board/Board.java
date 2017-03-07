@@ -23,14 +23,14 @@ public class Board {
     }
     
     public Board() {
-        for(int i = 1; i <= 32; i++) {
-            if(i <= 12)
+        for (int i = 1; i <= 32; i++) {
+            if (i <= 12) {
                 gameState.put(i, new BlackMan());
-            if(i >= 13 || i <= 21)
+            } else if (i >= 13 || i <= 21) {
                 gameState.put(i, new Empty());
-            else
+            } else {
                 gameState.put(i, new WhiteMan());
+            }
         }
     }
-    
 }
