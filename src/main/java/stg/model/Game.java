@@ -10,19 +10,21 @@ import java.util.HashMap;
  */
 public class Game {
 
+    Board gameState;
+
     public Game() {
-        Board gameState = new Board();
+        gameState = new Board();
     }
 
-    public HashMap<Integer, Piece> updateBoard(HashMap<Integer, Piece> gameState, int positionFrom, int positionTo) {
-        gameState.replace(positionTo, gameState.get(positionTo), gameState.get(positionFrom));
-        gameState.replace(positionFrom, new Empty());
-        return gameState;
+    public Board updateBoard(Board board, int positionFrom, int positionTo) {
+        board.getGameState().replace(positionTo, board.getGameState().get(positionTo), gameState.getGameState().get(positionFrom));
+        board.getGameState().replace(positionFrom, new Empty());
+        return board;
         }
 
-    public HashMap<Integer, Piece> capturePiece(HashMap<Integer, Piece> gameState, int position) {
-        gameState.replace(position, new Empty());
-        return gameState;
+    public Board capturePiece(Board board, int position) {
+        board.getGameState().replace(position, new Empty());
+        return board;
         }
 
 

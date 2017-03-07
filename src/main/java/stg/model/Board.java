@@ -11,7 +11,7 @@ import java.util.HashMap;
  * Created by rickjackson on 3/6/17.
  */
 public class Board {
-    HashMap<Integer, Piece> gameState = new HashMap<Integer, Piece>();
+    HashMap<Integer, Piece> gameState = new HashMap<Integer, Piece>(32);
 
     public void setGameState(HashMap<Integer, Piece> gameState) {
         this.gameState = gameState;
@@ -33,6 +33,6 @@ public class Board {
     }
 
     public boolean checkPosition (int position) {
-        return gameState.get(position) == Empty;
+        return gameState.get(position) instanceof Empty;
     }
 }
