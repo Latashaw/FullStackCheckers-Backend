@@ -12,25 +12,25 @@ import java.util.Map;
  * Created by rickjackson on 3/6/17.
  */
 public class Board {
-    Map<Integer, Piece> gameState = new HashMap<>();
-    
-    public void setGameState(HashMap<Integer, Piece> gameState) {
-        this.gameState = gameState;
-    }
-    
-    public Map<Integer, Piece> getGameState() {
-        return gameState;
-    }
+    Map<Integer, Piece> board = new HashMap<>(32);
     
     public Board() {
         for (int i = 1; i <= 32; i++) {
             if (i <= 12) {
-                gameState.put(i, new BlackMan());
-            } else if (i >= 13 || i <= 21) {
-                gameState.put(i, new Empty());
+                board.put(i, new BlackMan());
+            } else if (i >= 21) {
+                board.put(i, new WhiteMan());
             } else {
-                gameState.put(i, new WhiteMan());
+                board.put(i, new Empty());
             }
         }
+    }
+    
+    public void setBoard(Map<Integer, Piece> board) {
+        this.board = board;
+    }
+    
+    public Map<Integer, Piece> getBoard() {
+        return board;
     }
 }
