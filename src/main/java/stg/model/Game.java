@@ -1,5 +1,6 @@
 package stg.model;
 
+import stg.model.piece.BlackMan;
 import stg.model.piece.Empty;
 import stg.model.piece.Piece;
 
@@ -27,5 +28,13 @@ public class Game {
         return board;
         }
 
-
+    public void findAllMoveablePieces(Board board) {
+        for(int i = 1; i <= 32; i++) {
+            if(board.checkPosition(i))
+                continue;
+            BlackMan blackMan;
+            if(board.getGameState().get(i) instanceof BlackMan)
+                blackMan = (BlackMan) board.getGameState().get(i);
+        }
+    }
 }
