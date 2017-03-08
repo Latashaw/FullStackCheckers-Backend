@@ -8,7 +8,9 @@ import stg.model.move.WhiteMove;
  * Created by rickjackson on 3/6/17.
  */
 public class WhiteKing implements King, WhiteMove, BlackMove {
+
     String name = "WhiteKing";
+    private int position;
 
     WhiteKing() {}
 
@@ -18,5 +20,9 @@ public class WhiteKing implements King, WhiteMove, BlackMove {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public WhiteKing(int position) {
+        this.position = position;
     }
 }

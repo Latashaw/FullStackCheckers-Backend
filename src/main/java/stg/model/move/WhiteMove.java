@@ -1,5 +1,7 @@
 package stg.model.move;
 
+import java.util.List;
+
 /**
  * Created by rickjackson on 3/6/17.
  */
@@ -8,10 +10,10 @@ public interface WhiteMove {
     default int northWestSimpleMove(int start) {
         checkNorthSimpleMove(start);
         
-        if (start < 4
-            || (start % 4 == 0 && (start / 4) % 2 != 0)) {
+        if (start < 5
+            || ((start - 1) % 4 == 0 && ((start - 1) / 4) % 2 != 0)) {
             return -1;
-        } else if ((start / 4) % 2 == 0) {
+        } else if (((start - 1) / 4) % 2 == 0) {
             return start - 4;
         } else {
             return start - 5;
@@ -21,10 +23,10 @@ public interface WhiteMove {
     default int northEastSimpleMove(int start) {
         checkNorthSimpleMove(start);
         
-        if (start < 4
-            || (((start + 1) % 4 == 0 && ((start + 1) / 4) % 2 != 0))) {
+        if (start < 5
+            || ((start % 4 == 0 && (start / 4) % 2 != 0))) {
             return -1;
-        } else if ((start / 4) % 2 == 0) {
+        } else if (((start - 1) / 4) % 2 == 0) {
             return start - 3;
         } else {
             return start - 4;
@@ -34,17 +36,17 @@ public interface WhiteMove {
     default int northWestJumpMove(int start) {
         checkNorthSimpleMove(start);
         
-        return (start < 8 || start % 4 == 0) ? -1 : start - 9;
+        return (start < 9 || (start - 1) % 4 == 0) ? -1 : start - 9;
     }
     
     default int northEastJumpMove(int start) {
         checkNorthSimpleMove(start);
         
-        return (start < 8 || (start + 1) % 4 == 0) ? -1 : start - 7;
+        return (start < 9 || start % 4 == 0) ? -1 : start - 7;
     }
     
     default void checkNorthSimpleMove(int index) {
-        if (index < 0 || index > 31) {
+        if (index < 1 || index > 32) {
             throw new IndexOutOfBoundsException();
         }
     }

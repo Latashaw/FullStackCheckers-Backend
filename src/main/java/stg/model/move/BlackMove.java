@@ -8,10 +8,10 @@ public interface BlackMove {
     default int southWestSimpleMove(int start) {
         checkSouthMove(start);
         
-        if (start > 27
-            || (start % 4 == 0 && (start / 4) % 2 != 0)) {
+        if (start > 28
+            || ((start - 1) % 4 == 0 && ((start - 1) / 4) % 2 != 0)) {
             return -1;
-        } else if ((start / 4) % 2 == 0) {
+        } else if (((start - 1) / 4) % 2 == 0) {
             return start + 4;
         } else {
             return start + 3;
@@ -21,10 +21,10 @@ public interface BlackMove {
     default int southEastSimpleMove(int start) {
         checkSouthMove(start);
         
-        if (start > 27
-            || ((start + 1) % 4 == 0 && (((start + 1) / 4) % 2 != 0))) {
+        if (start > 28
+            || (start % 4 == 0 && ((start / 4) % 2 != 0))) {
             return -1;
-        } else if ((start / 4) % 2 == 0) {
+        } else if (((start - 1) / 4) % 2 == 0) {
             return start + 5;
         } else {
             return start + 4;
@@ -34,17 +34,17 @@ public interface BlackMove {
     default int southWestJumpMove(int start) {
         checkSouthMove(start);
         
-        return (start > 24 || start % 4 == 0) ? -1 : start + 7;
+        return (start > 24 || (start - 1) % 4 == 0) ? -1 : start + 7;
     }
     
     default int southEastJumpMove(int start) {
         checkSouthMove(start);
         
-        return (start > 24 || (start + 1) % 4 == 0) ? -1 : start + 9;
+        return (start > 24 || start % 4 == 0) ? -1 : start + 9;
     }
     
     default void checkSouthMove(int index) {
-        if (index < 0 || index > 31) {
+        if (index < 1 || index > 32) {
             throw new IndexOutOfBoundsException();
         }
     }

@@ -5,25 +5,32 @@ import stg.model.piece.Empty;
 import stg.model.piece.Piece;
 import stg.model.piece.WhiteMan;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by rickjackson on 3/6/17.
  */
 public class Board {
-    private Piece[] board = new Piece[32];
+    Map<Integer, Piece> board = new HashMap<>(32);
     
     public Board() {
-        constructBoard();
-    }
-    
-    void constructBoard() {
-        for (int i = 0; i < 32; i++) {
-            if (i < 12) {
-                board[i] = new BlackMan();
-            } else if (i > 190) {
-                board[i] = new WhiteMan();
+        for (int i = 1; i <= 32; i++) {
+            if (i <= 12) {
+                board.put(i, new BlackMan(i));
+            } else if (i >= 21) {
+                board.put(i, new WhiteMan(i));
             } else {
-                board[i] = new Empty();
+                board.put(i, new Empty(i));
             }
         }
+    }
+    
+    public void setBoard(Map<Integer, Piece> board) {
+        this.board = board;
+    }
+    
+    public Map<Integer, Piece> getBoard() {
+        return board;
     }
 }
