@@ -1,20 +1,22 @@
 package stg.model.piece;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import stg.model.board.Board;
 import stg.model.move.WhiteMove;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by rickjackson on 3/6/17.
  */
+@SuppressWarnings("Duplicates")
+@JsonDeserialize(as = WhiteMan.class)
 public class WhiteMan implements Man, WhiteMove {
     private int position;
     List<Integer> possibleMoves;
     
-    WhiteMan() {
+   public WhiteMan() {
         
     }
     

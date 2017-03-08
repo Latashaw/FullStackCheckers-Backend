@@ -1,7 +1,7 @@
 package stg.model.piece;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import stg.model.board.Board;
-import stg.model.move.BlackMove;
 import stg.model.move.WhiteMove;
 
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Created by rickjackson on 3/6/17.
  */
+@JsonDeserialize(as = BlackKing.class)
 public class BlackKing extends BlackMan implements King, WhiteMove {
     private int position;
     private List<Integer> additionalMoves;

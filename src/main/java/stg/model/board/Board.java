@@ -130,7 +130,7 @@ public class Board {
         return boardCopy;
     }
     
-    public List<Integer> getMoves(Board board, int i) {
+    static public List<Integer> getMoves(Board board, int i) {
         Piece p = board.getBoard().get(i);
         return p.getPossibleMoves(board, i);
     }
