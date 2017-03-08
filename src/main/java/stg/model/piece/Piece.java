@@ -5,6 +5,6 @@ package stg.model.piece;
  */
 public interface Piece {
 
-    public final String name = Piece.class.toString();
+
 
 }

@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import stg.model.Board;
 
-import java.util.Map;
-
 /**
  * Created by prestonbattin on 3/7/17.
  */
@@ -24,8 +22,6 @@ public class GameController {
     @RequestMapping(value = "/movePiece", method = RequestMethod.POST, consumes = {"application/json"}, produces = {"application/json"})
     public Board movePiece(@RequestBody Board board){
 
-
-        Map temp = board.getGameState();
 
         return board;
     }
