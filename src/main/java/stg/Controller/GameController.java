@@ -1,8 +1,10 @@
 package stg.Controller;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import stg.model.Board;
-import stg.model.piece.WhiteMan;
 
 import java.util.Map;
 
@@ -14,15 +16,17 @@ public class GameController {
 
 
     @RequestMapping(value = "/newGame", method = RequestMethod.GET, produces = {"application/json"})
-    public Map newGame() {
+    public Board newGame() {
 
-        return new Board().getGameState();
+        return new Board();
     }
 
     @RequestMapping(value = "/movePiece", method = RequestMethod.POST, consumes = {"application/json"}, produces = {"application/json"})
-    public Map movePiece(@RequestBody Map board){
+    public Board movePiece(@RequestBody Board board){
 
-        board.put(1, new WhiteMan());
+
+        Map temp = board.getGameState();
+
         return board;
     }
 

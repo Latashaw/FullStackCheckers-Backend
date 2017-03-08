@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class Board {
     HashMap<Integer, Piece> gameState = new HashMap<Integer, Piece>(32);
 
+
     public void setGameState(HashMap<Integer, Piece> gameState) {
         this.gameState = gameState;
     }
