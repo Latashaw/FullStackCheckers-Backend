@@ -1,5 +1,6 @@
 package stg.model.piece;
 
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import stg.model.board.Board;
@@ -19,6 +20,7 @@ public class BlackKingTest {
     
     @Test
     public void testGetPossibleMoves() {
-        System.out.println(bk.getPossibleMoves(board, 18));
+        assertEquals(1, bk.getPossibleMoves(board, 13).size());
+        assertEquals(2, bk.getPossibleMoves(board, 18).size());
     }
 }
