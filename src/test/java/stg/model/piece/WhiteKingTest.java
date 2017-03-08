@@ -7,18 +7,18 @@ import stg.model.board.Board;
 /**
  * Created by rickjackson on 3/8/17.
  */
-public class BlackKingTest {
-    private BlackKing bk;
+public class WhiteKingTest {
+    private WhiteKing wk;
     private Board board;
     
     @Before
     public void setup() {
-        this.bk = new BlackKing();
+        this.wk = new WhiteKing();
         this.board = new Board();
     }
     
     @Test
     public void testGetPossibleMoves() {
-        System.out.println(bk.getPossibleMoves(board, 18));
+        System.out.println(wk.getPossibleMoves(board, 13));
     }
 }
