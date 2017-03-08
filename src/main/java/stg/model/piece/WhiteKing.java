@@ -1,8 +1,6 @@
 package stg.model.piece;
 
-import stg.model.board.Board;
 import stg.model.move.BlackMove;
-import stg.model.move.WhiteMove;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,21 +9,31 @@ import java.util.List;
  * Created by rickjackson on 3/6/17.
  */
 public class WhiteKing extends WhiteMan implements King, BlackMove {
+
+    String name = "WhiteKing";
     private int position;
     private List<Integer> additionalMoves;
-    
+
     public WhiteKing() {
-        
+
     }
-    
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public WhiteKing(int position) {
         this.position = position;
     }
-    
+
     void setAdditionalMoves(Board b, int i) {
         int sw = southWestSimpleMove(i);
         int se = southEastSimpleMove(i);
-    
+
         if (!isValidMove(b, sw)) {
             if (isValidMove(b, southWestJumpMove(i))) {
                 sw = southWestJumpMove(i);
@@ -40,7 +48,7 @@ public class WhiteKing extends WhiteMan implements King, BlackMove {
                 se = -1;
             }
         }
-    
+
         if (sw == -1) {
             if (se == -1) {
                 additionalMoves = new ArrayList<>(0);
@@ -59,7 +67,7 @@ public class WhiteKing extends WhiteMan implements King, BlackMove {
             }
         }
     }
-    
+
     @Override
     public List<Integer> getPossibleMoves(Board board, int position) {
         this.setPossibleMoves(board, position);

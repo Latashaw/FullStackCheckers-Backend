@@ -1,6 +1,5 @@
 package stg.model.piece;
 
-import stg.model.board.Board;
 import stg.model.move.BlackMove;
 
 import java.util.ArrayList;
@@ -10,12 +9,20 @@ import java.util.List;
  * Created by rickjackson on 3/6/17.
  */
 public class BlackMan implements Man, BlackMove {
+
+    String name = "BlackMan";
     List<Integer> possibleMoves;
-    
-    BlackMan() {
-        
+
+    public BlackMan() {}
+
+    public String getName() {
+        return name;
     }
-    
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public BlackMan(int position) {
         this.possibleMoves = new ArrayList<>();
     }
@@ -23,7 +30,7 @@ public class BlackMan implements Man, BlackMove {
     void setPossibleMoves(Board b, int i) {
         int sw = southWestSimpleMove(i);
         int se = southEastSimpleMove(i);
-        
+
         if (!isValidMove(b, sw)) {
             if (isValidMove(b, southWestJumpMove(i))) {
                 sw = southWestJumpMove(i);
@@ -38,7 +45,7 @@ public class BlackMan implements Man, BlackMove {
                 se = -1;
             }
         }
-        
+
         if (sw == -1) {
             if (se == -1) {
                 possibleMoves = new ArrayList<>(0);
@@ -61,18 +68,18 @@ public class BlackMan implements Man, BlackMove {
     void addAdditionalMoves(List moves) {
         possibleMoves.addAll(moves);
     }
-    
+
     public List<Integer> getPossibleMoves(Board board, int position) {
         this.setPossibleMoves(board, position);
         return possibleMoves;
     }
-    
+
     boolean isValidMove(Board b, int to) {
         if (to <= 1 && to >= 32) {
             return false;
         }
         Object o = b.getBoard().get(to);
-        
+
         if (o instanceof BlackMan) {
             return false;
         }

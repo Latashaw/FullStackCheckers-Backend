@@ -1,6 +1,10 @@
 package stg.model.piece;
 
+<<<<<<<<< Temporary merge branch 1
+import stg.model.Color;
+=========
 import stg.model.board.Board;
+>>>>>>>>> Temporary merge branch 2
 import stg.model.move.BlackMove;
 import stg.model.move.WhiteMove;
 
@@ -10,6 +14,24 @@ import java.util.List;
 /**
  * Created by rickjackson on 3/6/17.
  */
+<<<<<<<<< Temporary merge branch 1
+public class BlackKing implements King, BlackMove, WhiteMove {
+
+    String name = "BlackKing";
+    private int position;
+    private int[] possibleMoves = new int[4];
+
+    BlackKing() {}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+=========
 public class BlackKing extends BlackMan implements King, WhiteMove {
     private int position;
     private List<Integer> additionalMoves;
@@ -17,7 +39,8 @@ public class BlackKing extends BlackMan implements King, WhiteMove {
     public BlackKing() {
         
     }
-
+    
+>>>>>>>>> Temporary merge branch 2
     public BlackKing(int position) {
         this.position = position;
     }
