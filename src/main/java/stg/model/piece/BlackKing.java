@@ -17,7 +17,7 @@ public class BlackKing extends BlackMan implements King, WhiteMove {
     public BlackKing() {
         
     }
-    
+
     public BlackKing(int position) {
         this.position = position;
     }
