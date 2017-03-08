@@ -12,11 +12,26 @@ import java.util.Map;
 @RestController
 public class GameController {
 
+    Board gameBoard = new Board();
+
 
     @RequestMapping(value = "/newGame", method = RequestMethod.GET, produces = {"application/json"})
     public Map newGame() {
-
+        // Can we have it to set the game state for the new Board, and return that?
         return new Board().getGameState();
+    }
+
+    // Grabs current board state. May/may not be necessary.
+    @RequestMapping(value="getMap", method = RequestMethod.POST, produces = "application/json")
+    public Map getBoard(@RequestBody Map board) {
+
+        for(int i = 0; i < board.size(); i++) {
+            if (board.get(i+1).equals(gameBoard.getGameState().get(i+1))) {
+            } else {
+                board.put(i+1, gameBoard.getGameState().get(i+1));
+            }
+        }
+        return board;
     }
 
     @RequestMapping(value = "/movePiece", method = RequestMethod.POST, consumes = {"application/json"}, produces = {"application/json"})
