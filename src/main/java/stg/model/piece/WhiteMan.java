@@ -11,7 +11,7 @@ public class WhiteMan implements Man, WhiteMove {
     String name = "WhiteMan";
     private int position;
 
-    WhiteMan() {}
+    public WhiteMan() {}
 
     public String getName() {
         return name;

@@ -1,9 +1,6 @@
 package stg.model;
 
-import stg.model.piece.BlackMan;
-import stg.model.piece.Empty;
-import stg.model.piece.Piece;
-import stg.model.piece.WhiteMan;
+import stg.model.piece.*;
 
 import java.util.HashMap;
 
@@ -13,9 +10,12 @@ import java.util.HashMap;
 public class Game {
 
     Board gameState;
+    int blackPieceCount; int whitePieceCount;
 
     public Game() {
         gameState = new Board();
+        blackPieceCount = 12;
+        whitePieceCount = 12;
     }
 
     public Board updateBoard(Board board, int positionFrom, int positionTo) {
@@ -25,9 +25,21 @@ public class Game {
         }
 
     public Board capturePiece(Board board, int position) {
+        if(board.getGameState().get(position) instanceof WhiteMan || board.getGameState().get(position) instanceof WhiteKing)
+            whitePieceCount--;
+        if(board.getGameState().get(position) instanceof BlackMan || board.getGameState().get(position) instanceof BlackKing)
+            blackPieceCount--;
         board.getGameState().replace(position, new Empty());
         return board;
         }
+
+    public int evaluateMove(Board board, int positionFrom, int positionTo) {
+        int moveScore = 0;
+        int difference = Math.abs(positionFrom - positionTo);
+        if(difference > 6)
+            moveScore += 3;
+
+    }
 //
 //    public int[] findAllMoveableBlackMen(Board board) {
 //        int[] moveable = new int[];

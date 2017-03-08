@@ -12,14 +12,7 @@ import java.util.HashMap;
  */
 public class Board {
     HashMap<Integer, Piece> gameState = new HashMap<Integer, Piece>(32);
-
-    public void setGameState(HashMap<Integer, Piece> gameState) {
-        this.gameState = gameState;
-    }
-
-    public HashMap<Integer, Piece> getGameState() {
-        return gameState;
-    }
+    int positionFrom, positionTo;
 
     public Board() {
         for(int i = 1; i<=32; i++) {
@@ -32,7 +25,34 @@ public class Board {
         }
     }
 
+    public void setGameState(HashMap<Integer, Piece> gameState) {
+        this.gameState = gameState;
+    }
+
+    public HashMap<Integer, Piece> getGameState() {
+        return gameState;
+    }
+
+    public int getPositionFrom() {
+        return positionFrom;
+    }
+
+    public void setPositionFrom(int positionFrom) {
+        this.positionFrom = positionFrom;
+    }
+
+    public int getPositionTo() {
+        return positionTo;
+    }
+
+    public void setPositionTo(int positionTo) {
+        this.positionTo = positionTo;
+    }
+
+
     public boolean checkPosition (int position) {
         return gameState.get(position) instanceof Empty;
     }
+
+
 }
