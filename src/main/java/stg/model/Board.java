@@ -11,7 +11,7 @@ import java.util.HashMap;
  * Created by rickjackson on 3/6/17.
  */
 public class Board {
-    HashMap<Integer, Piece> gameState = new HashMap<Integer, Piece>();
+    HashMap<Integer, Piece> gameState = new HashMap<Integer, Piece>(32);
 
     public void setGameState(HashMap<Integer, Piece> gameState) {
         this.gameState = gameState;
@@ -25,7 +25,7 @@ public class Board {
         for(int i = 1; i<=32; i++) {
             if(i<=12)
                 gameState.put(i, new BlackMan());
-            if(i>=13 || i<=21)
+            else if(i>=13 && i<=21)
                 gameState.put(i, new Empty());
             else
                 gameState.put(i, new WhiteMan());
@@ -33,6 +33,13 @@ public class Board {
     }
 
     public boolean checkPosition (int position) {
-        return gameState.get(position) == Empty;
+        return gameState.get(position) instanceof Empty;
     }
+
+    public static void main(String[] args) {
+        Board newt = new Board();
+        System.out.println(newt.getGameState());
+    }
+
+
 }

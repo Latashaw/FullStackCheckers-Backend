@@ -48,4 +48,5 @@ public interface BlackMove {
             throw new IndexOutOfBoundsException();
         }
     }
+
 }
