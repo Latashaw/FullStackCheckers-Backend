@@ -3,16 +3,25 @@ package stg.model.piece;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
+import stg.model.board.Board;
 
 /**
  * Created by rickjackson on 3/7/17.
  */
 public class BlackManTest {
     BlackMan black;
+    WhiteMan white;
+    Board board;
+    BlackKing blackKing;
+    WhiteKing whiteKing;
     
     @Before
     public void setup() {
         this.black = new BlackMan();
+        this.white = new WhiteMan();
+        this.board = new Board();
+        this.blackKing = new BlackKing();
+        this.whiteKing = new WhiteKing();
     }
     
     // Move Tests
@@ -69,5 +78,13 @@ public class BlackManTest {
         assertEquals(30, black.southEastJumpMove(21));
         assertEquals(-1, black.southEastJumpMove(25));
         assertEquals(-1, black.southEastJumpMove(32));
+    }
+    
+    @Test
+    public void testGetPossibleMoves() {
+        System.out.println(black.getPossibleMoves(board, 18));
+        System.out.println(blackKing.getPossibleMoves(board, 18));
+        System.out.println(white.getPossibleMoves(board, 18));
+        System.out.println(whiteKing.getPossibleMoves(board, 18));
     }
 }
