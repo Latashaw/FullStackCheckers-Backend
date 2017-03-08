@@ -1,19 +1,14 @@
 package stg.model.piece;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import stg.Controller.PieceDeserializer;
 import stg.model.board.Board;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by rickjackson on 3/6/17.
  */
-@JsonDeserialize(using = PieceDeserializer.class)
 public interface Piece {
     
     List<Integer> getPossibleMoves(Board board, int position);
-    String name = "piece";
-
-
 }

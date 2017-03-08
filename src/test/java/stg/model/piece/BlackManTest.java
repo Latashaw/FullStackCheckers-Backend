@@ -83,10 +83,8 @@ public class BlackManTest {
     
     @Test
     public void testGetPossibleMoves() {
-        
-        System.out.println(black.getPossibleMoves(board, 18));
-        System.out.println(blackKing.getPossibleMoves(board, 18));
-        System.out.println(white.getPossibleMoves(board, 18));
-        System.out.println(whiteKing.getPossibleMoves(board, 18));
+        assertEquals(0, black.getPossibleMoves(board, 17).size());
+        assertEquals(1, black.getPossibleMoves(board, 13).size());
+        assertEquals(2, black.getPossibleMoves(board, 10).size());
     }
 }

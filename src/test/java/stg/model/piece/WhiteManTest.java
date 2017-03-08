@@ -1,10 +1,12 @@
 package stg.model.piece;
 
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import stg.model.board.Board;
+import stg.model.move.WhiteMove;
 
-import static org.junit.Assert.assertEquals;
+import java.util.ArrayList;
 
 /**
  * Created by rickjackson on 3/7/17.

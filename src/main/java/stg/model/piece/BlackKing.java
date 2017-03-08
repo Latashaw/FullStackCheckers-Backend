@@ -1,7 +1,7 @@
 package stg.model.piece;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import stg.model.board.Board;
+import stg.model.move.BlackMove;
 import stg.model.move.WhiteMove;
 
 import java.util.ArrayList;
@@ -10,34 +10,22 @@ import java.util.List;
 /**
  * Created by rickjackson on 3/6/17.
  */
-@SuppressWarnings("Duplicates")
-@JsonDeserialize(as=BlackKing.class)
 public class BlackKing extends BlackMan implements King, WhiteMove {
-
-    String name = "BlackKing";
     private int position;
     private List<Integer> additionalMoves;
-
+    
     public BlackKing() {
-
+        
     }
-
+    
     public BlackKing(int position) {
         this.position = position;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    
     void setAdditionalMoves(Board b, int i) {
         int nw = northWestSimpleMove(i);
         int ne = northEastSimpleMove(i);
-
+    
         if (!isValidMove(b, nw)) {
             if (isValidMove(b, northWestJumpMove(i))) {
                 nw = northWestJumpMove(i);
@@ -52,7 +40,7 @@ public class BlackKing extends BlackMan implements King, WhiteMove {
                 ne = -1;
             }
         }
-
+    
         if (nw == -1) {
             if (ne == -1) {
                 additionalMoves = new ArrayList<>(0);
@@ -71,7 +59,7 @@ public class BlackKing extends BlackMan implements King, WhiteMove {
             }
         }
     }
-
+    
     @Override
     public List<Integer> getPossibleMoves(Board board, int position) {
         this.setPossibleMoves(board, position);
