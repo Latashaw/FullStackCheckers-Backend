@@ -20,8 +20,8 @@ public class PieceDeserializer extends JsonDeserializer<Piece> {
         ObjectNode node = om.readTree(jp);
         
         if (node.has("name") && node.get("name")
-                                                  .asText()
-                                                  .equals("WhiteMan")) {
+                                    .asText()
+                                    .equals("WhiteMan")) {
             return om.readValue(node.toString(), WhiteMan.class);
         } else if (node.has("name") && node.get("name")
                                            .asText().equals("WhiteKing")) {
