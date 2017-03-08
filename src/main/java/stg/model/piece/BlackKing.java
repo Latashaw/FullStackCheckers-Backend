@@ -18,4 +18,22 @@ public class BlackKing implements King, BlackMove, WhiteMove {
 
         return "BlackKing";
     }
+
+    String name = "BlackKing";
+    private int position;
+    private int[] possibleMoves = new int[4];
+
+    BlackKing() {}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public BlackKing(int position) {
+        this.position = position;
+    }
 }

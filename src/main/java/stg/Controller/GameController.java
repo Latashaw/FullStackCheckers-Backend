@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import stg.model.Board;
+import stg.model.board.Board;
 
 import java.util.Map;
 
@@ -25,7 +25,7 @@ public class GameController {
     public Board movePiece(@RequestBody Board board){
 
 
-        Map temp = board.getGameState();
+        Map temp = board.getBoard();
 
         return board;
     }
@@ -34,4 +34,7 @@ public class GameController {
 //    public int[] checkMoves(@RequestBody int piece){
 //
 //    }
+
+
+
 }

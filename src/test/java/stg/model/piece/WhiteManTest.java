@@ -18,43 +18,51 @@ public class WhiteManTest {
     
     @Test
     public void testNorthWestSimpleMove() {
-        assertEquals(-1, white.northWestSimpleMove(0));
+        assertEquals(-1, white.northWestSimpleMove(1));
         assertEquals(-1, white.northWestSimpleMove(4));
-        assertEquals(0, white.northWestSimpleMove(5));
-        assertEquals(15, white.northWestSimpleMove(19));
-        assertEquals(26, white.northWestSimpleMove(31));
-        assertEquals(22, white.northWestSimpleMove(26));
-        
+        assertEquals(-1, white.northWestSimpleMove(5));
+        assertEquals(3, white.northWestSimpleMove(8));
+        assertEquals(21, white.northWestSimpleMove(25));
+        assertEquals(24, white.northWestSimpleMove(28));
+        assertEquals(-1, white.northWestSimpleMove(29));
+        assertEquals(27, white.northWestSimpleMove(32));
     }
     
     @Test
     public void testNorthEastSimpleMove() {
-        assertEquals(-1, white.northEastSimpleMove(0));
-        assertEquals(0, white.northEastSimpleMove(4));
+        assertEquals(-1, white.northEastSimpleMove(1));
+        assertEquals(-1, white.northEastSimpleMove(4));
         assertEquals(1, white.northEastSimpleMove(5));
-        assertEquals(7, white.northEastSimpleMove(10));
-        assertEquals(26, white.northEastSimpleMove(30));
+        assertEquals(4, white.northEastSimpleMove(8));
+        assertEquals(22, white.northEastSimpleMove(25));
+        assertEquals(-1, white.northEastSimpleMove(28));
+        assertEquals(25, white.northEastSimpleMove(29));
+        assertEquals(28, white.northEastSimpleMove(32));
     }
     
     @Test
     public void testNorthWestJumpMove() {
-        assertEquals(-1, white.northWestJumpMove(0));
-        assertEquals(-1, white.northWestJumpMove(3));
+        assertEquals(-1, white.northWestJumpMove(1));
         assertEquals(-1, white.northWestJumpMove(4));
+        assertEquals(-1, white.northWestJumpMove(5));
         assertEquals(-1, white.northWestJumpMove(8));
-        assertEquals(2, white.northWestJumpMove(11));
-        assertEquals(18, white.northWestJumpMove(27));
+        assertEquals(3, white.northWestJumpMove(12));
+        assertEquals(13, white.northWestJumpMove(22));
+        assertEquals(-1, white.northWestJumpMove(25));
+        assertEquals(19, white.northWestJumpMove(28));
+        assertEquals(21, white.northWestJumpMove(30));
+        assertEquals(23, white.northWestJumpMove(32));
     }
     
     @Test
     public void testNorthEastJumpMove() {
-        assertEquals(-1, white.northEastJumpMove(0));
-        assertEquals(-1, white.northEastJumpMove(3));
-        assertEquals(-1, white.northEastJumpMove(4));
-        assertEquals(-1, white.northEastJumpMove(7));
-        assertEquals(1, white.northEastJumpMove(8));
-        assertEquals(14, white.northEastJumpMove(21));
-        assertEquals(23, white.northEastJumpMove(30));
-        assertEquals(-1, white.northEastJumpMove(31));
+        assertEquals(-1, white.northEastJumpMove(1));
+        assertEquals(-1, white.northEastJumpMove(8));
+        assertEquals(2, white.northEastJumpMove(9));
+        assertEquals(-1, white.northEastJumpMove(12));
+        assertEquals(18, white.northEastJumpMove(25));
+        assertEquals(20, white.northEastJumpMove(27));
+        assertEquals(22, white.northEastJumpMove(29));
+        assertEquals(-1, white.northEastJumpMove(32));
     }
 }

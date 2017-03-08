@@ -15,4 +15,22 @@ public class Empty implements Piece {
 
         return "Empty";
     }
+
+    String name = "Empty";
+    private int position;
+
+    public Empty() {}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Empty(int position) {
+        this.position = position;
+
+    }
 }
