@@ -3,17 +3,22 @@ package stg.model.piece;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
+import stg.model.board.Board;
 import stg.model.move.WhiteMove;
+
+import java.util.ArrayList;
 
 /**
  * Created by rickjackson on 3/7/17.
  */
 public class WhiteManTest {
-    private WhiteMove white;
+    private WhiteMan white;
+    private Board board;
     
     @Before
     public void setup() {
-        this.white = new WhiteMan();
+        this.white = new WhiteMan(17);
+        this.board = new Board();
     }
     
     @Test
@@ -64,5 +69,10 @@ public class WhiteManTest {
         assertEquals(20, white.northEastJumpMove(27));
         assertEquals(22, white.northEastJumpMove(29));
         assertEquals(-1, white.northEastJumpMove(32));
+    }
+    
+    @Test
+    public void testGetPossibleMoves() {
+        System.out.println(white.getPossibleMoves(board, 18));
     }
 }

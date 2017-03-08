@@ -1,17 +1,21 @@
 package stg.model.piece;
 
+import stg.model.board.Board;
 import stg.model.Color;
 import stg.model.move.BlackMove;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by rickjackson on 3/6/17.
  */
 public class BlackMan implements Man, BlackMove {
+    List<Integer> possibleMoves;
+
+    BlackMan() {
+
+    }
 
     String name = "BlackMan";
     private List<Integer> possibleMoves;
@@ -25,25 +29,67 @@ public class BlackMan implements Man, BlackMove {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public BlackMan(int position) {
         this.possibleMoves = new ArrayList<>();
     }
-
-//    public List<String> getPossibleMoves(Map board,
-//                                         int position) {
-//        StringBuilder sb = new StringBuilder();
-//
-//
-//    }
     
-    public StringBuilder nextMove(Map board, int start,
-                                  int move) {
-        StringBuilder sb = new StringBuilder();
-        
-        if (move == -1) {
-            return sb.append("");
+    void setPossibleMoves(Board b, int i) {
+        int sw = southWestSimpleMove(i);
+        int se = southEastSimpleMove(i);
+
+        if (!isValidMove(b, sw)) {
+            if (isValidMove(b, southWestJumpMove(i))) {
+                sw = southWestJumpMove(i);
+            } else {
+                sw = -1;
+            }
         }
-        return null;
+        if (!isValidMove(b, se)) {
+            if (isValidMove(b, southEastJumpMove(i))) {
+                se = southEastJumpMove(i);
+            } else {
+                se = -1;
+            }
+        }
+
+        if (sw == -1) {
+            if (se == -1) {
+                possibleMoves = new ArrayList<>(0);
+            } else {
+                possibleMoves = new ArrayList<>(1);
+                possibleMoves.add(se);
+            }
+        } else {
+            if (se == -1) {
+                possibleMoves = new ArrayList<>(1);
+                possibleMoves.add(sw);
+            } else {
+                possibleMoves = new ArrayList<>(2);
+                possibleMoves.add(sw);
+                possibleMoves.add(se);
+            }
+        }
+    }
+    
+    void addAdditionalMoves(List moves) {
+        possibleMoves.addAll(moves);
+    }
+
+    public List<Integer> getPossibleMoves(Board board, int position) {
+        this.setPossibleMoves(board, position);
+        return possibleMoves;
+    }
+
+    boolean isValidMove(Board b, int to) {
+        if (to <= 1 && to >= 32) {
+            return false;
+        }
+        Object o = b.getBoard().get(to);
+
+        if (o instanceof BlackMan) {
+            return false;
+        }
+        return o instanceof Empty;
     }
 }
