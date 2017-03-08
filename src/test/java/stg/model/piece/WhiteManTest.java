@@ -1,6 +1,7 @@
 package stg.model.piece;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import stg.model.board.Board;
@@ -73,6 +74,8 @@ public class WhiteManTest {
     
     @Test
     public void testGetPossibleMoves() {
-        System.out.println(white.getPossibleMoves(board, 18));
+        assertEquals(0, white.getPossibleMoves(board, 14).size());
+        assertEquals(1, white.getPossibleMoves(board, 20).size());
+        assertEquals(2, white.getPossibleMoves(board, 18).size());
     }
 }

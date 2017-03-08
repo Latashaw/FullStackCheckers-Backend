@@ -1,5 +1,6 @@
 package stg.model.piece;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import stg.model.board.Board;
 import stg.model.move.WhiteMove;
 
@@ -10,11 +11,12 @@ import java.util.Map;
 /**
  * Created by rickjackson on 3/6/17.
  */
-public class WhiteMan implements Man, WhiteMove {
+@JsonDeserialize(as = WhiteMan.class)
+public class WhiteMan implements Piece, WhiteMove {
     private int position;
     List<Integer> possibleMoves;
     
-    WhiteMan() {
+    public WhiteMan() {
         
     }
     
