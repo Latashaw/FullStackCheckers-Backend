@@ -2,7 +2,9 @@ package stg.model.board;
 
 import stg.model.piece.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by rickjackson on 3/6/17.
@@ -120,5 +122,27 @@ public class Board {
         boardCopy.setBlackPieceCount(getBlackPieceCount());
         boardCopy.setWhitePieceCount(getWhitePieceCount());
         return boardCopy;
+    }
+
+    public List<Integer> getAllPossibleBlackMovers() {
+        List<Integer> possibleMovers = new ArrayList<>();
+        for (int i = 1; i<getBoard().size(); i++) {
+            if (getBoard().get(i) instanceof BlackMan || getBoard().get(i) instanceof BlackKing) {
+                if (!getBoard().get(i).getPossibleMoves(this, i).isEmpty())
+                    possibleMovers.add(i);
+            }
+        }
+        return possibleMovers;
+    }
+
+    public List<Integer> getAllPossibleWhiteMovers() {
+        List<Integer> possibleMovers = new ArrayList<>();
+        for (int i = 1; i<getBoard().size(); i++) {
+            if (getBoard().get(i) instanceof WhiteMan || getBoard().get(i) instanceof WhiteKing) {
+                if (!getBoard().get(i).getPossibleMoves(this, i).isEmpty())
+                    possibleMovers.add(i);
+            }
+        }
+        return possibleMovers;
     }
 }

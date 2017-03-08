@@ -21,9 +21,10 @@ public class DecisionTreeNode {
         }
 
         if(children.isEmpty()) {
-            LinkedList<Board> moves = ;
-            for(Board board: moves) {
-                children.add(new DecisionTreeNode(b));
+            LinkedList<Board> possibleBoardStates;
+            board.getAllPossibleBlackMovers();
+            for(Board board: possibleBoardStates) {
+                children.add(new DecisionTreeNode(board));
             }
         }
     }
