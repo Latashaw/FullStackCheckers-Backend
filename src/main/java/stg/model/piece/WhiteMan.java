@@ -1,5 +1,6 @@
 package stg.model.piece;
 
+import stg.model.board.Board;
 import stg.model.move.WhiteMove;
 
 import java.util.ArrayList;

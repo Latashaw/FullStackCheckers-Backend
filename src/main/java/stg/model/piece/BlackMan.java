@@ -1,5 +1,6 @@
 package stg.model.piece;
 
+import stg.model.board.Board;
 import stg.model.move.BlackMove;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * Created by rickjackson on 3/6/17.
  */
+@SuppressWarnings("Duplicates")
 public class BlackMan implements Man, BlackMove {
 
     String name = "BlackMan";

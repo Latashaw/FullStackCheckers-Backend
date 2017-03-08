@@ -30,10 +30,13 @@ public class GameController {
         return board;
     }
 
-//    @RequestMapping(value = "/checkMoves", method = RequestMethod.GET, consumes = {"application/json"})
-//    public int[] checkMoves(@RequestBody int piece){
-//
-//    }
+    @RequestMapping(value = "/checkMoves", method = RequestMethod.GET, consumes = {"application/json"})
+    public int[] checkMoves(@RequestBody Board board){
+
+
+
+        
+    }
 
 
 

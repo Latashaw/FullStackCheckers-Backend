@@ -1,11 +1,6 @@
 package stg.model.piece;
 
-<<<<<<<<< Temporary merge branch 1
-import stg.model.Color;
-=========
 import stg.model.board.Board;
->>>>>>>>> Temporary merge branch 2
-import stg.model.move.BlackMove;
 import stg.model.move.WhiteMove;
 
 import java.util.ArrayList;
@@ -14,14 +9,19 @@ import java.util.List;
 /**
  * Created by rickjackson on 3/6/17.
  */
-<<<<<<<<< Temporary merge branch 1
-public class BlackKing implements King, BlackMove, WhiteMove {
+public class BlackKing extends BlackMan implements King, WhiteMove {
 
     String name = "BlackKing";
     private int position;
-    private int[] possibleMoves = new int[4];
+    private List<Integer> additionalMoves;
 
-    BlackKing() {}
+    public BlackKing() {
+
+    }
+
+    public BlackKing(int position) {
+        this.position = position;
+    }
 
     public String getName() {
         return name;
@@ -31,24 +31,10 @@ public class BlackKing implements King, BlackMove, WhiteMove {
         this.name = name;
     }
 
-=========
-public class BlackKing extends BlackMan implements King, WhiteMove {
-    private int position;
-    private List<Integer> additionalMoves;
-    
-    public BlackKing() {
-        
-    }
-    
->>>>>>>>> Temporary merge branch 2
-    public BlackKing(int position) {
-        this.position = position;
-    }
-    
     void setAdditionalMoves(Board b, int i) {
         int nw = northWestSimpleMove(i);
         int ne = northEastSimpleMove(i);
-    
+
         if (!isValidMove(b, nw)) {
             if (isValidMove(b, northWestJumpMove(i))) {
                 nw = northWestJumpMove(i);
@@ -63,7 +49,7 @@ public class BlackKing extends BlackMan implements King, WhiteMove {
                 ne = -1;
             }
         }
-    
+
         if (nw == -1) {
             if (ne == -1) {
                 additionalMoves = new ArrayList<>(0);
@@ -82,7 +68,7 @@ public class BlackKing extends BlackMan implements King, WhiteMove {
             }
         }
     }
-    
+
     @Override
     public List<Integer> getPossibleMoves(Board board, int position) {
         this.setPossibleMoves(board, position);
