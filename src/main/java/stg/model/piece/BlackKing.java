@@ -1,8 +1,5 @@
 package stg.model.piece;
 
-import stg.model.board.Board;
-import stg.model.Color;
-import stg.model.move.BlackMove;
 import stg.model.move.WhiteMove;
 
 import java.util.ArrayList;
@@ -15,16 +12,6 @@ public class BlackKing extends BlackMan implements King, WhiteMove {
 
     String name = "BlackKing";
     private int position;
-    private int[] possibleMoves = new int[4];
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     private List<Integer> additionalMoves;
 
     public BlackKing() {
@@ -33,6 +20,14 @@ public class BlackKing extends BlackMan implements King, WhiteMove {
 
     public BlackKing(int position) {
         this.position = position;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     void setAdditionalMoves(Board b, int i) {

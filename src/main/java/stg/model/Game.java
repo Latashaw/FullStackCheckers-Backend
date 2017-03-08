@@ -1,8 +1,6 @@
 package stg.model;
 
-import stg.model.piece.*;
-
-import java.util.HashMap;
+import stg.model.board.Board;
 
 /**
  * Created by kevinmccann on 3/7/17.
@@ -26,7 +24,7 @@ public class Game {
 
     public Board getPossibleBoardState(Board board, int possiblePositionFrom, int possiblePositionTo) {
         Board boardCopy = new Board();
-        boardCopy.setGameState(board.getGameState());
+        boardCopy.setBoard(board.getBoard());
         boardCopy.updateBoard(possiblePositionFrom, possiblePositionTo);
         return boardCopy;
     }

@@ -1,11 +1,9 @@
 package stg.model.piece;
 
-import stg.model.board.Board;
 import stg.model.move.WhiteMove;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by rickjackson on 3/6/17.
@@ -15,11 +13,6 @@ public class WhiteMan implements Man, WhiteMove {
     String name = "WhiteMan";
     private int position;
     List<Integer> possibleMoves;
-
-    WhiteMan() {
-
-    }
-
 
     public WhiteMan() {}
 

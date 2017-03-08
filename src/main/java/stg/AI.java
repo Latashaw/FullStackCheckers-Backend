@@ -1,6 +1,6 @@
 package stg;
 
-import stg.model.Board;
+import stg.model.board.Board;
 import stg.model.piece.*;
 
 /**
@@ -13,7 +13,7 @@ public class AI {
 
     public int evaluateBoardPositionWhite(Board board) {
         int positionScore = 0;
-        for (Piece p : board.getGameState().values()) {
+        for (Piece p : board.getBoard().values()) {
             if(p instanceof WhiteMan)
                 positionScore += PIECE;
             if(p instanceof WhiteKing)
@@ -32,7 +32,7 @@ public class AI {
 
     public int evaluateBoardPositionBlack(Board board) {
         int positionScore = 0;
-        for (Piece p : board.getGameState().values()) {
+        for (Piece p : board.getBoard().values()) {
             if(p instanceof WhiteMan)
                 positionScore -= PIECE;
             if(p instanceof WhiteKing)
@@ -47,5 +47,7 @@ public class AI {
                 positionScore += WIN;
         }
         return positionScore;
+
+
     }
 }

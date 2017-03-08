@@ -1,8 +1,6 @@
 package stg.model.piece;
 
-import stg.model.board.Board;
 import stg.model.move.BlackMove;
-import stg.model.move.WhiteMove;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +9,6 @@ import java.util.List;
  * Created by rickjackson on 3/6/17.
  */
 public class WhiteKing extends WhiteMan implements King, BlackMove {
-public class WhiteKing implements King, WhiteMove, BlackMove {
 
     String name = "WhiteKing";
     private int position;
@@ -20,8 +17,6 @@ public class WhiteKing implements King, WhiteMove, BlackMove {
     public WhiteKing() {
 
     }
-
-    WhiteKing() {}
 
     public String getName() {
         return name;
