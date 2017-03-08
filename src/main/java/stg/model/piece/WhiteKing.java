@@ -1,6 +1,6 @@
 package stg.model.piece;
 
-import stg.model.Color;
+
 import stg.model.move.BlackMove;
 import stg.model.move.WhiteMove;
 

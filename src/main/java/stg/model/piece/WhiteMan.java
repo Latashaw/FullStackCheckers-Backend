@@ -7,12 +7,6 @@ import stg.model.move.WhiteMove;
  */
 public class WhiteMan implements Man, WhiteMove {
 
-    public final String type = this.getSimpleName();
-
-    public String getType() {
-        return type;
-    }
-
     private String getSimpleName(){
 
         return "WhiteMan";

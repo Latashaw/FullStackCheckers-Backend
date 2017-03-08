@@ -5,11 +5,6 @@ package stg.model.piece;
  */
 public class Empty implements Piece {
 
-    public final String type = this.getSimpleName();
-
-    public String getType() {
-        return type;
-    }
 
     private String getSimpleName(){
 
