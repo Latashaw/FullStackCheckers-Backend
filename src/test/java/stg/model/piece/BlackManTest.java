@@ -82,6 +82,7 @@ public class BlackManTest {
     
     @Test
     public void testGetPossibleMoves() {
+        
         System.out.println(black.getPossibleMoves(board, 18));
         System.out.println(blackKing.getPossibleMoves(board, 18));
         System.out.println(white.getPossibleMoves(board, 18));
