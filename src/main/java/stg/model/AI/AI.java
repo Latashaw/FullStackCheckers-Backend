@@ -1,4 +1,4 @@
-package stg;
+package stg.model.AI;
 
 import stg.model.board.Board;
 import stg.model.piece.*;
@@ -48,5 +48,9 @@ public class AI {
         }
         return positionScore;
     }
-    
+
+//    public int[] chooseMove(Board board) {
+//
+//    }
+
 }

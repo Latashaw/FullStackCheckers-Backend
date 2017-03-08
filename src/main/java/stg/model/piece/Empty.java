@@ -1,5 +1,10 @@
 package stg.model.piece;
 
+import stg.model.board.Board;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by rickjackson on 3/6/17.
  */
@@ -20,6 +25,10 @@ public class Empty implements Piece {
     
     public Empty(int position) {
         this.position = position;
+    }
 
+    @Override
+    public List<Integer> getPossibleMoves(Board b, int i) {
+        return new ArrayList<>(0);
     }
 }

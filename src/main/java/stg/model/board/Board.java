@@ -65,6 +65,11 @@ public class Board {
         this.whitePieceCount = whitePieceCount;
     }
 
+    public Board doMove(Board board) {
+        board.updateBoard(positionFrom, positionTo);
+        return this;
+    }
+
     public boolean checkPositionEmpty (int position) {
         return board.get(position) instanceof Empty;
     }
