@@ -1,5 +1,7 @@
 package stg.model.move;
 
+import java.util.List;
+
 /**
  * Created by rickjackson on 3/6/17.
  */

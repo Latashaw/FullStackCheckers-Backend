@@ -7,4 +7,9 @@ import stg.model.move.WhiteMove;
  * Created by rickjackson on 3/6/17.
  */
 public class WhiteKing implements King, WhiteMove, BlackMove {
+    private int position;
+    
+    public WhiteKing(int position) {
+        this.position = position;
+    }
 }

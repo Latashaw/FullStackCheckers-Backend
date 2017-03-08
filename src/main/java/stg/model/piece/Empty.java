@@ -4,4 +4,9 @@ package stg.model.piece;
  * Created by rickjackson on 3/6/17.
  */
 public class Empty implements Piece {
+    private int position;
+    
+    public Empty(int position) {
+        this.position = position;
+    }
 }

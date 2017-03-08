@@ -17,11 +17,11 @@ public class Board {
     public Board() {
         for (int i = 1; i <= 32; i++) {
             if (i <= 12) {
-                board.put(i, new BlackMan());
+                board.put(i, new BlackMan(i));
             } else if (i >= 21) {
-                board.put(i, new WhiteMan());
+                board.put(i, new WhiteMan(i));
             } else {
-                board.put(i, new Empty());
+                board.put(i, new Empty(i));
             }
         }
     }
