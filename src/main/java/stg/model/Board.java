@@ -2,6 +2,7 @@ package stg.model;
 
 import stg.model.piece.*;
 
+import javax.print.attribute.HashPrintJobAttributeSet;
 import java.util.HashMap;
 
 /**
@@ -49,8 +50,23 @@ public class Board {
         this.positionTo = positionTo;
     }
 
+    public int getBlackPieceCount() {
+        return blackPieceCount;
+    }
 
-    public boolean checkPosition (int position) {
+    public void setBlackPieceCount(int blackPieceCount) {
+        this.blackPieceCount = blackPieceCount;
+    }
+
+    public int getWhitePieceCount() {
+        return whitePieceCount;
+    }
+
+    public void setWhitePieceCount(int whitePieceCount) {
+        this.whitePieceCount = whitePieceCount;
+    }
+
+    public boolean checkPositionEmpty (int position) {
         return gameState.get(position) instanceof Empty;
     }
 
@@ -58,6 +74,19 @@ public class Board {
         gameState.replace(positionTo, gameState.get(positionTo), gameState.get(positionFrom));
         gameState.replace(positionFrom, new Empty());
         return gameState;
+    }
+
+    public Board getPossibleBoardState(int possiblePositionFrom, int possiblePositionTo) {
+        Board boardCopy = this.copy();
+        boardCopy.updateBoard(possiblePositionFrom, possiblePositionTo);
+        return boardCopy;
+    }
+
+    public Board getPossibleBoardState(Board board, int possiblePositionFrom, int possiblePositionTo) {
+        Board boardCopy = new Board();
+        boardCopy.setGameState(board.getGameState());
+        boardCopy.updateBoard(possiblePositionFrom, possiblePositionTo);
+        return boardCopy;
     }
 
     public HashMap<Integer, Piece> capturePiece(int position) {
@@ -79,5 +108,13 @@ public class Board {
 
     public boolean isBlackWinner() {
         return whitePieceCount == 0;
+    }
+
+    public Board copy() {
+        Board boardCopy = new Board();
+        boardCopy.setGameState(getGameState());
+        boardCopy.setBlackPieceCount(getBlackPieceCount());
+        boardCopy.setWhitePieceCount(getWhitePieceCount());
+        return boardCopy;
     }
 }

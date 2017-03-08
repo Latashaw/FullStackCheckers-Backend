@@ -16,8 +16,6 @@ public class Game {
         gameState = new Board();
     }
 
-
-
 //  public int evaluateMove(Board board, int positionFrom, int positionTo) {
 //        int moveScore = 0;
 //        int difference = Math.abs(positionFrom - positionTo);

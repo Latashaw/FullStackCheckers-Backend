@@ -7,7 +7,7 @@ import stg.model.piece.*;
  * Created by kevinmccann on 3/8/17.
  */
 public class AI {
-    public final int WIN = 1000;
+    public final int WIN = 500;
     public final int KING = 80;
     public final int PIECE = 30;
 
@@ -27,6 +27,7 @@ public class AI {
             if(board.checkGameFinished() && board.isBlackWinner())
                 positionScore -= WIN;
         }
+        return positionScore;
     }
 
     public int evaluateBoardPositionBlack(Board board) {
@@ -45,5 +46,6 @@ public class AI {
             if(board.checkGameFinished() && board.isBlackWinner())
                 positionScore += WIN;
         }
+        return positionScore;
     }
 }

@@ -30,12 +30,12 @@ public class BlackMan implements Man, BlackMove {
         this.possibleMoves = new ArrayList<>();
     }
 
-    public List<String> getPossibleMoves(Map board,
-                                         int position) {
-        StringBuilder sb = new StringBuilder();
-
-
-    }
+//    public List<String> getPossibleMoves(Map board,
+//                                         int position) {
+//        StringBuilder sb = new StringBuilder();
+//
+//
+//    }
     
     public StringBuilder nextMove(Map board, int start,
                                   int move) {
