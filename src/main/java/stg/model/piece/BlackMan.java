@@ -1,5 +1,6 @@
 package stg.model.piece;
 
+import stg.model.board.Board;
 import stg.model.move.BlackMove;
 
 import java.util.ArrayList;

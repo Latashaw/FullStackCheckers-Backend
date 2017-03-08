@@ -47,7 +47,6 @@ public class AI {
                 positionScore += WIN;
         }
         return positionScore;
-
-
     }
+    
 }
