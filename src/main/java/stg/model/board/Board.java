@@ -3,12 +3,14 @@ package stg.model.board;
 import stg.model.piece.*;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by rickjackson on 3/6/17.
  */
 public class Board {
-    HashMap<Integer, Piece> board = new HashMap<Integer, Piece>(32);
+    Map<Integer, Piece> board = new HashMap<Integer, Piece>(32);
     int positionFrom, positionTo;
     int blackPieceCount; int whitePieceCount;
 
@@ -16,7 +18,7 @@ public class Board {
         for(int i = 1; i<=32; i++) {
             if(i<=12)
                 board.put(i, new BlackMan());
-            if(i>=13 && i<=21)
+            else if(i>=13 && i<=21)
                 board.put(i, new Empty());
             else
                 board.put(i, new WhiteMan());
@@ -25,11 +27,11 @@ public class Board {
         whitePieceCount = 12;
     }
 
-    public void setBoard(HashMap<Integer, Piece> board) {
+    public void setBoard(Map<Integer, Piece> board) {
         this.board = board;
     }
 
-    public HashMap<Integer, Piece> getBoard() {
+    public Map<Integer, Piece> getBoard() {
         return board;
     }
 
@@ -69,7 +71,7 @@ public class Board {
         return board.get(position) instanceof Empty;
     }
 
-    public HashMap<Integer, Piece> updateBoard(int positionFrom, int positionTo) {
+    public Map updateBoard(int positionFrom, int positionTo) {
         board.replace(positionTo, board.get(positionTo), board.get(positionFrom));
         board.replace(positionFrom, new Empty());
         return board;
@@ -83,12 +85,12 @@ public class Board {
 
     public Board getPossibleBoardState(Board board, int possiblePositionFrom, int possiblePositionTo) {
         Board boardCopy = new Board();
-        boardCopy.setBoard(board.getBoard());
+        boardCopy.setBoard(this.board);
         boardCopy.updateBoard(possiblePositionFrom, possiblePositionTo);
         return boardCopy;
     }
 
-    public HashMap<Integer, Piece> capturePiece(int position) {
+    public Map capturePiece(int position) {
         if(board.get(position) instanceof WhiteMan || board.get(position) instanceof WhiteKing)
             whitePieceCount--;
         if(board.get(position) instanceof BlackMan || board.get(position) instanceof BlackKing)
@@ -111,9 +113,14 @@ public class Board {
 
     public Board copy() {
         Board boardCopy = new Board();
-        boardCopy.setBoard(getBoard());
+        boardCopy.setBoard(this.board);
         boardCopy.setBlackPieceCount(getBlackPieceCount());
         boardCopy.setWhitePieceCount(getWhitePieceCount());
         return boardCopy;
+    }
+
+    static public List<Integer> getMoves(Board b, int i){
+        Piece p = b.getBoard().get(i);
+        return p.getPossibleMoves(b, i);
     }
 }

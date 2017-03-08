@@ -1,15 +1,16 @@
 package stg.model.piece;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import stg.model.board.Board;
+
+import java.util.List;
+
 /**
  * Created by rickjackson on 3/6/17.
  */
+@JsonDeserialize(as=Empty.class)
+
 public class Empty implements Piece {
-
-    public final String type = this.getSimpleName();
-
-    public String getType() {
-        return type;
-    }
 
     private String getSimpleName(){
 
@@ -32,5 +33,10 @@ public class Empty implements Piece {
     public Empty(int position) {
         this.position = position;
 
+    }
+
+    @Override
+    public List<Integer> getPossibleMoves(Board board, int position) {
+        return null;
     }
 }

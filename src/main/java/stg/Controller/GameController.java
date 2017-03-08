@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import stg.model.board.Board;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,9 +31,15 @@ public class GameController {
         return board;
     }
 
-    @RequestMapping(value = "/checkMoves", method = RequestMethod.GET, consumes = {"application/json"})
-    public int[] checkMoves(@RequestBody Board board){
+    @RequestMapping(value = "/checkMoves", method = RequestMethod.POST, consumes = {"application/json"}, produces = {"application/json"})
+    public List<Integer> test(@RequestBody Board board){
 
+
+//        Board tempbpard = board;
+//       int temp = board.getPositionFrom();
+//      return  board.getBoard().get(temp).getPossibleMoves(tempbpard,temp);
+
+       return Board.getMoves(board, board.getPositionFrom());
 
 
         
