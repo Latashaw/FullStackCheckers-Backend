@@ -24,7 +24,7 @@ public class GameController {
         return new Board();
     }
     
- 
+
 
     @RequestMapping(value="/getMoves", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Integer> getMoves(@RequestBody Board board) {
@@ -33,8 +33,8 @@ public class GameController {
 
     @RequestMapping(value="movePiece", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Board movePiece(@RequestBody Board board) {
-
-        return null;
+        // We need to put movePiece into it.
+        return board;
     }
 
 
