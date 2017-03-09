@@ -2,10 +2,7 @@ package stg.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import stg.model.board.Board;
 import stg.model.piece.Piece;
 
@@ -17,6 +14,7 @@ import java.util.Map;
  * Created by prestonbattin on 3/7/17.
  */
 @RestController
+@RequestMapping(value="/")
 public class GameController {
     
     @RequestMapping(value = "/newGame",
@@ -28,6 +26,16 @@ public class GameController {
         //  logger.debug(x);
         return new Board();
     }
+
+    @CrossOrigin
+    @RequestMapping(value = "/get", method = RequestMethod.POST,
+    consumes = "application/json")
+    public String getBoard(@RequestBody Board board) {
+        Logger logger = Logger.getLogger(GameController.class);
+            logger.debug(board.getBoard());
+            return "success";
+
+    }
     
 
 
@@ -38,8 +46,8 @@ public class GameController {
 
     @RequestMapping(value="movePiece", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Map<Integer,Piece> movePiece(@RequestBody Board board) {
-        Logger logger = Logger.getLogger(GameController.class);
-        logger.debug(" At #12, there is an " + board.getBoard().get(22).getClass().getSimpleName());
+       // Logger logger = Logger.getLogger(GameController.class);
+        //logger.debug(" At #12, there is an " + board.getBoard().get(22).getClass().getSimpleName());
         return board.getBoard();
     }
 
