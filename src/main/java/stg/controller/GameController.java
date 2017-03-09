@@ -26,16 +26,37 @@ public class GameController {
         //  logger.debug(x);
         return new Board();
     }
-
+/*
     @CrossOrigin
     @RequestMapping(value = "/get", method = RequestMethod.POST,
     consumes = "application/json")
     public String getBoard(@RequestBody Board board) {
+
         Logger logger = Logger.getLogger(GameController.class);
-            logger.debug(board.getBoard());
+            logger.debug(GetDeserializer.jsonToBoard(board));
             return "success";
 
     }
+
+    */
+/*
+@CrossOrigin
+@RequestMapping(value="/get", method = RequestMethod.POST, consumes = "application/json")
+public void getBoard(@RequestBody Board board) {
+    Logger logger = Logger.getLogger(GameController.class);
+    logger.debug("Success. Board is:" + board);
+
+}
+*/
+
+@CrossOrigin
+@RequestMapping(value="/get", method = RequestMethod.POST, consumes="application/json", produces ="application/json")
+public Board getBoard(Board board) {
+    Board copy = board;
+    Logger logger = Logger.getLogger(GameController.class);
+    logger.debug(copy.getBoard().get(1).getPossibleMoves(copy, 10));
+    return copy;
+}
     
 
 

@@ -1,5 +1,7 @@
 package stg.model.board;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import stg.controller.Deserialize;
 import stg.model.piece.*;
 
 import java.util.HashMap;
@@ -9,13 +11,18 @@ import java.util.Map;
 /**
  * Created by rickjackson on 3/6/17.
  */
+@JsonDeserialize(using = Deserialize.class)
 public class Board {
     Map<Integer, Piece> board = new HashMap<>(32);
     int positionTo;
     int positionFrom;
     int blackPieceCount;
     int whitePieceCount;
-    
+
+    public Board(Map<Integer, Piece> board) {
+        this.board = board;
+    }
+
     public Board() {
         for (int i = 1; i <= 32; i++) {
             if (i <= 12) {
@@ -29,6 +36,8 @@ public class Board {
         blackPieceCount = 12;
         whitePieceCount = 12;
     }
+
+
     
     public void setBoard(Map<Integer, Piece> board) {
         this.board = board;
