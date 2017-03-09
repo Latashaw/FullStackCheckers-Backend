@@ -1,4 +1,4 @@
-package stg.Controller;
+package stg.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,23 +24,19 @@ public class GameController {
         return new Board();
     }
     
-    @RequestMapping(value = "/movePiece",
-                    method = RequestMethod.POST,
-                    consumes = {"application/json"},
-                    produces = {"application/json"})
-    public Board movePiece(@RequestBody Board board) {
-        
-        Map temp = board.getBoard();
-        
-        return board;
+ 
+
+    @RequestMapping(value="/getMoves", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<Integer> getMoves(@RequestBody Board board) {
+        return board.getBoard().get(board.getPositionFrom()).getPossibleMoves(board, board.getPositionFrom());
     }
 
-    @RequestMapping(value="/move", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Integer> getMoves(@RequestBody Board board) {
-        Board copyOfBoard = board;
-        int position = copyOfBoard.getPositionFrom();
-        return copyOfBoard.getBoard().get(position).getPossibleMoves(copyOfBoard, position);
+    @RequestMapping(value="movePiece", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Board movePiece(@RequestBody Board board) {
+
+        return null;
     }
+
 
     @RequestMapping(value = "/checkMoves",
                     method = RequestMethod.POST,
