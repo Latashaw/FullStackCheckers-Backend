@@ -51,11 +51,12 @@ public void getBoard(@RequestBody Board board) {
 
 @CrossOrigin
 @RequestMapping(value="/get", method = RequestMethod.POST, consumes="application/json", produces ="application/json")
-public Board getBoard(Board board) {
+public @ResponseBody List<Integer> getBoard(Board board) {
     Board copy = board;
+    board.setPositionFrom(10);
     Logger logger = Logger.getLogger(GameController.class);
-    logger.debug(copy.getBoard().get(1).getPossibleMoves(copy, 10));
-    return copy;
+    logger.debug(copy.getMoves(copy, copy.getPositionFrom()));
+    return copy.getMoves(copy, copy.getPositionFrom());
 }
     
 
