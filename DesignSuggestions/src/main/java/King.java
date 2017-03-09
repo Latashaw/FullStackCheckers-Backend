@@ -3,9 +3,11 @@
  */
 public class King extends Piece {
     String state;
+    String direction;
 
-    public King(String state){
+    public King(String state, String direction){
         super(state);
+        super(direction);
     }
 
     public void moveOneLeftBack(){}

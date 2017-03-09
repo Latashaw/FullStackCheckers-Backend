@@ -1,14 +1,27 @@
+import java.util.HashMap;
+
 /**
  * Created by latashawatson on 3/8/17.
  */
-public abstract class Player {
+public class Player {
+    private Object name;
+    private int numberOfCapturedPieces = 0;
+    private Piece[] playersBoardPieces;
+    private HashMap<Integer, Space> playersPossibleMoves;
 
-    int numberOfCapturedPieces = 0;
+    public Player(Object name) {
+        this.name = name;
+    }
 
-    Space[] playersBoardPieces = new Space[12];
+    public void calculateOnePiecesPossibleMoves(Piece piece) {
+        analyzePlayerBoardPieces();
+        determinePossibleMove();
+    }
 
-    public void analyzePlayerBoardPieces() {}
+    public void analyzePlayerBoardPieces() {
+    }
 
-    public void determinePossibleMoves() {}
+    public void determinePossibleMove() {
+    }
 
 }
