@@ -36,8 +36,6 @@ public class Board {
         blackPieceCount = 12;
         whitePieceCount = 12;
     }
-
-
     
     public void setBoard(Map<Integer, Piece> board) {
         this.board = board;
@@ -85,9 +83,17 @@ public class Board {
     
     public Map<Integer, Piece> updateBoard(int positionFrom,
                                                int positionTo) {
-        board.replace(positionTo,
-                      board.get(positionTo),
-                      board.get(positionFrom));
+        movePiece(positionFrom, positionTo);
+        boardSpotToEmpty(positionFrom);
+        return board;
+    }
+
+    public Map<Integer, Piece> movePiece(int positionFrom, int positionTo) {
+        board.replace(positionTo, board.get(positionTo), board.get(positionFrom));
+        return board;
+    }
+
+    public Map<Integer, Piece> boardSpotToEmpty(int positionFrom) {
         board.replace(positionFrom, new Empty());
         return board;
     }
