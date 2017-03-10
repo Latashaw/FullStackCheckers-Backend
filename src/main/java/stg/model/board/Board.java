@@ -101,6 +101,10 @@ public class Board {
         board.replace(positionFrom, new Empty());
         return board;
     }
+
+    public Piece getPieceAtSpot(int position) {
+        return board.get(position);
+    }
     
     public Board getPossibleBoardState(int possiblePositionFrom,
                                        int possiblePositionTo) {
@@ -144,6 +148,13 @@ public class Board {
         Piece p = board.getBoard().get(i);
         return p.getPossibleMoves(board, i);
     }
-    
-    
+
+    @Override
+    public int hashCode() {
+        return board.hashCode();
+    }
+
+    public boolean equals(Board obj) {
+        return board.equals(obj.board);
+    }
 }

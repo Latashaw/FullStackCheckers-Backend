@@ -2,7 +2,10 @@ package stg.model.board;
 
 import org.junit.Before;
 import org.junit.Test;
-import stg.model.piece.Piece;
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by rickjackson on 3/8/17.
@@ -16,52 +19,91 @@ public class BoardTest {
     }
 
     @Test
-    public void newBoardInit() throws Exception {
-
+    public void newBoardInitTest() throws Exception {
     }
 
     @Test
-    public void checkPositionEmpty() throws Exception {
-
+    public void checkPositionEmptyTest() throws Exception {
+        boolean expected = true;
+        boolean actual = board.checkPositionEmpty(13);
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void updateBoard() throws Exception {
+    public void checkPositionEmptyFalseTest() throws Exception {
+        boolean expected = false;
+        boolean actual = board.checkPositionEmpty(12);
+        assertEquals(expected, actual);
+    }
 
+
+    @Test
+    public void updateBoardTest() throws Exception {
+        board.updateBoard(12,15);
+        assertTrue(board.checkPositionEmpty(12));
+        assertFalse(board.checkPositionEmpty(15));
     }
 
     @Test
-    public void movePiece() throws Exception {
-
+    public void movePieceTest() throws Exception {
+        board.movePiece(21,16);
+        assertFalse(board.checkPositionEmpty(16));
     }
 
     @Test
-    public void boardSpotToEmpty() throws Exception {
-
+    public void boardSpotToEmptyTest() throws Exception {
+        board.boardSpotToEmpty(1);
+        assertTrue(board.checkPositionEmpty(1));
     }
 
     @Test
-    public void capturePiece() throws Exception {
-
+    public void capturePieceTest() throws Exception {
+        board.capturePiece(12);
+        assertTrue(board.checkPositionEmpty(12));
     }
 
     @Test
-    public void checkGameFinished() throws Exception {
-
+    public void checkGameFinishedTest() throws Exception {
+        for(int i = 1; i<=12; i++) {
+            board.capturePiece(i);
+        }
+        assertTrue(board.checkGameFinished());
     }
 
     @Test
-    public void isWhiteWinner() throws Exception {
-
+    public void isWhiteWinnerTest() throws Exception {
+        for(int i = 1; i<=12; i++) {
+            board.capturePiece(i);
+        }
+        assertTrue(board.isWhiteWinner());
     }
 
     @Test
-    public void isBlackWinner() throws Exception {
-
+    public void isBlackWinnerTest() throws Exception {
+        for(int i = 20; i<=32; i++) {
+            board.capturePiece(i);
+        }
+        assertTrue(board.isBlackWinner());
     }
 
     @Test
-    public void getPossibleMoves() throws Exception {
+    public void getPossibleMovesTest() throws Exception {
+        List<Integer> expected = new ArrayList<>(1);
+        expected.add(16);
+        List<Integer> actual = board.getPossibleMoves(board, 12);
+        assertEquals(expected, actual);
+    }
 
+    @Test
+    public void getPossibleMovesEmptyTest() throws Exception {
+        List<Integer> expected = new ArrayList<>(0);
+        List<Integer> actual = board.getPossibleMoves(board, 1);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void copyTest() {
+        Board boardTest = board.copy();
+        assertEquals(board.getBoard(), boardTest.getBoard());
     }
 }
