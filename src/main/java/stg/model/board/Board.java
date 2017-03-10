@@ -24,6 +24,10 @@ public class Board {
     }
 
     public Board() {
+        newBoardInit();
+    }
+
+    public void newBoardInit() {
         for (int i = 1; i <= 32; i++) {
             if (i <= 12) {
                 board.put(i, new BlackMan());
@@ -33,8 +37,8 @@ public class Board {
                 board.put(i, new Empty());
             }
         }
-        blackPieceCount = 12;
-        whitePieceCount = 12;
+        setBlackPieceCount(12);
+        setWhitePieceCount(12);
     }
     
     public void setBoard(Map<Integer, Piece> board) {
@@ -105,15 +109,6 @@ public class Board {
         return boardCopy;
     }
     
-    public Board getPossibleBoardState(Board board,
-                                       int possiblePositionFrom,
-                                       int possiblePositionTo) {
-        Board boardCopy = new Board();
-        boardCopy.setBoard(this.board);
-        boardCopy.updateBoard(possiblePositionFrom, possiblePositionTo);
-        return boardCopy;
-    }
-    
     public Map<Integer, Piece> capturePiece(int position) {
         if (board.get(position) instanceof WhiteMan
             || board.get(position) instanceof WhiteKing)
@@ -121,7 +116,7 @@ public class Board {
         if (board.get(position) instanceof BlackMan
             || board.get(position) instanceof BlackKing)
             blackPieceCount--;
-        board.replace(position, new Empty());
+        boardSpotToEmpty(position);
         return board;
     }
     
@@ -145,7 +140,7 @@ public class Board {
         return boardCopy;
     }
     
-    public static List<Integer> getMoves(Board board, int i) {
+    public static List<Integer> getPossibleMoves(Board board, int i) {
         Piece p = board.getBoard().get(i);
         return p.getPossibleMoves(board, i);
     }

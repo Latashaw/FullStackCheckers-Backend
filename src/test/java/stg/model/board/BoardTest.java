@@ -8,30 +8,60 @@ import stg.model.piece.Piece;
  * Created by rickjackson on 3/8/17.
  */
 public class BoardTest {
-    private Board board;
-    
+    Board board;
+
     @Before
-    public void setup() {
-        this.board = new Board();
+    public void setUp() {
+        board = new Board();
     }
-    
+
     @Test
-    public void test() {
-        System.out.println(board.getPositionFrom());
-        board.setPositionFrom(10);
-        
-        System.out.println(
-                board.getBoard().get(10).getPossibleMoves(board, 10)
-                          );
-        System.out.println(
-                board.getBoard().get(board.getPositionFrom())
-                     .getPossibleMoves(board, board.getPositionFrom())
-                          );
-        System.out.println(
-                board.getMoves(board, 10)
-                          );
-        System.out.println(
-                board.getBoard().get(10) instanceof Piece
-                          );
+    public void newBoardInit() throws Exception {
+
+    }
+
+    @Test
+    public void checkPositionEmpty() throws Exception {
+
+    }
+
+    @Test
+    public void updateBoard() throws Exception {
+
+    }
+
+    @Test
+    public void movePiece() throws Exception {
+
+    }
+
+    @Test
+    public void boardSpotToEmpty() throws Exception {
+
+    }
+
+    @Test
+    public void capturePiece() throws Exception {
+
+    }
+
+    @Test
+    public void checkGameFinished() throws Exception {
+
+    }
+
+    @Test
+    public void isWhiteWinner() throws Exception {
+
+    }
+
+    @Test
+    public void isBlackWinner() throws Exception {
+
+    }
+
+    @Test
+    public void getPossibleMoves() throws Exception {
+
     }
 }

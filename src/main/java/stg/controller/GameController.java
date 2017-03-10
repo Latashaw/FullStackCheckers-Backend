@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import stg.model.board.Board;
 import stg.model.piece.Piece;
 
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -55,8 +54,8 @@ public @ResponseBody List<Integer> getBoard(Board board) {
     Board copy = board;
     board.setPositionFrom(10);
     Logger logger = Logger.getLogger(GameController.class);
-    logger.debug(copy.getMoves(copy, copy.getPositionFrom()));
-    return copy.getMoves(copy, copy.getPositionFrom());
+    logger.debug(copy.getPossibleMoves(copy, copy.getPositionFrom()));
+    return copy.getPossibleMoves(copy, copy.getPositionFrom());
 }
     
 
