@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by rickjackson on 3/6/17.
  */
-public class Board {
+public class    Board {
     Map<Integer, Piece> board = new HashMap<>(32);
     int positionTo;
     int positionFrom;
