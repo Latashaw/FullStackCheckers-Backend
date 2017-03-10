@@ -14,9 +14,16 @@ import java.util.List;
 public class BlackKing extends BlackMan implements King, WhiteMove {
     private int position;
     private List<Integer> additionalMoves;
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    final private String name = "BLACK_KING";
     
     public BlackKing() {
-        
+
     }
     
     public BlackKing(int position) {

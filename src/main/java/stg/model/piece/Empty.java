@@ -12,11 +12,15 @@ import java.util.List;
 @JsonDeserialize(as = Empty.class)
 public class Empty implements Piece {
     private int position;
-    
+    final private String name = "EMPTY";
     public Empty() {
-        
+
     }
-    
+
+    public String getName() {
+        return name;
+    }
+
     public Empty(int position) {
         this.position = position;
     }

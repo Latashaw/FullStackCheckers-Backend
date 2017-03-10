@@ -13,8 +13,13 @@ import java.util.List;
 @JsonDeserialize(as = BlackMan.class)
 public class BlackMan implements Man, BlackMove {
     List<Integer> possibleMoves;
-    
-   public BlackMan() {
+    final private String name = "BLACK_MAN";
+
+    public String getName() {
+        return name;
+    }
+
+    public BlackMan() {
         
     }
     

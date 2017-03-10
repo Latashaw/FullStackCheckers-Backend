@@ -14,6 +14,12 @@ import java.util.List;
 @JsonDeserialize(as = WhiteMan.class)
 public class WhiteMan implements Man, WhiteMove {
     private int position;
+    final private String name = "WHITE_MAN";
+
+    public String getName() {
+        return name;
+    }
+
     List<Integer> possibleMoves;
     
    public WhiteMan() {
