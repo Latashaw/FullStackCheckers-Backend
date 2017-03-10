@@ -13,6 +13,7 @@ public class Board {
     HashMap<Integer, Piece> board = new HashMap<Integer, Piece>(32);
     int positionFrom, positionTo;
     int blackPieceCount; int whitePieceCount;
+    boolean playerTurn;
 
     public Board() {
         for(int i = 1; i<=32; i++) {
@@ -25,6 +26,7 @@ public class Board {
         }
         blackPieceCount = 12;
         whitePieceCount = 12;
+        playerTurn = true;
     }
 
     public void setBoard(HashMap<Integer, Piece> board) {
@@ -67,6 +69,14 @@ public class Board {
         this.whitePieceCount = whitePieceCount;
     }
 
+    public boolean isPlayerTurn() {
+        return playerTurn;
+    }
+
+    public void setPlayerTurn(boolean playerTurn) {
+        this.playerTurn = playerTurn;
+    }
+
     public Board doMove(Board board) {
         board.updateBoard(positionFrom, positionTo);
         return this;
@@ -79,18 +89,12 @@ public class Board {
     public HashMap<Integer, Piece> updateBoard(int positionFrom, int positionTo) {
         board.replace(positionTo, board.get(positionTo), board.get(positionFrom));
         board.replace(positionFrom, new Empty());
+        playerTurn = !playerTurn;
         return board;
     }
 
     public Board getPossibleBoardState(int possiblePositionFrom, int possiblePositionTo) {
         Board boardCopy = this.copy();
-        boardCopy.updateBoard(possiblePositionFrom, possiblePositionTo);
-        return boardCopy;
-    }
-
-    public Board getPossibleBoardState(Board board, int possiblePositionFrom, int possiblePositionTo) {
-        Board boardCopy = new Board();
-        boardCopy.setBoard(board.getBoard());
         boardCopy.updateBoard(possiblePositionFrom, possiblePositionTo);
         return boardCopy;
     }
