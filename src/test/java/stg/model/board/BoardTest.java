@@ -60,6 +60,7 @@ public class BoardTest {
     public void capturePieceTest() throws Exception {
         board.capturePiece(12);
         assertTrue(board.checkPositionEmpty(12));
+        assertEquals(11, board.getBlackPieceCount());
     }
 
     @Test
