@@ -22,7 +22,6 @@ public class DecisionTreeNode {
         }
 
         if(children.isEmpty() && !board.isPlayerTurn()) {
-            LinkedList<Board> possibleBoardStates;
             for(Integer i: board.getAllPossibleBlackMovers()) {
                 List<Integer> positionTo = board.getBoard().get(i).getPossibleMoves(board, i);
                 for(Integer j: positionTo) {
@@ -32,7 +31,6 @@ public class DecisionTreeNode {
         }
 
         if(children.isEmpty() && board.isPlayerTurn()) {
-            LinkedList<Board> possibleBoardStates;
             for(Integer i: board.getAllPossibleWhiteMovers()) {
                 List<Integer> positionTo = board.getBoard().get(i).getPossibleMoves(board, i);
                 for(Integer j: positionTo) {
@@ -42,9 +40,16 @@ public class DecisionTreeNode {
         }
     }
 
-    public int minimax() {
+    public int bestBoardPosition() {
         if(children.isEmpty()) {
-            return board.
+            return AI.evaluateBoardPositionBlack(board);
         }
+        int maxBoardValue = 0;
+        for (DecisionTreeNode dtn : children) {
+            maxBoardValue = Math.max(maxBoardValue, dtn.bestBoardPosition());
+        }
+        return maxBoardValue;
     }
+
+    
 }

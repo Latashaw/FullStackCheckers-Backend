@@ -1,5 +1,6 @@
 package stg.model.piece;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import stg.model.board.Board;
 import stg.model.move.BlackMove;
 
@@ -9,7 +10,8 @@ import java.util.List;
 /**
  * Created by rickjackson on 3/6/17.
  */
-public class BlackMan implements Man, BlackMove {
+@JsonDeserialize(as = BlackMan.class)
+public class BlackMan implements Piece, BlackMove {
 
     String name = "BlackMan";
     List<Integer> possibleMoves;

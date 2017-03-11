@@ -7,11 +7,11 @@ import stg.model.piece.*;
  * Created by kevinmccann on 3/8/17.
  */
 public class AI {
-    public final int WIN = 500;
-    public final int KING = 80;
-    public final int PIECE = 30;
+    static final int WIN = 500;
+    static final int KING = 80;
+    static final int PIECE = 30;
 
-    public int evaluateBoardPositionWhite(Board board) {
+    static public int evaluateBoardPositionWhite(Board board) {
         int positionScore = 0;
         for (Piece p : board.getBoard().values()) {
             if(p instanceof WhiteMan)
@@ -30,7 +30,7 @@ public class AI {
         return positionScore;
     }
 
-    public int evaluateBoardPositionBlack(Board board) {
+    static public int evaluateBoardPositionBlack(Board board) {
         int positionScore = 0;
         for (Piece p : board.getBoard().values()) {
             if(p instanceof WhiteMan)
