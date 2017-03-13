@@ -10,11 +10,16 @@ import java.util.List;
 public class DecisionTreeNode {
     public LinkedList<DecisionTreeNode> children;
     public Board board;
+    public int BoardValue = AI.evaluateBoardPositionBlack(board);
 
     public DecisionTreeNode(Board board) {
         children = new LinkedList<>();
         this.board = board;
     }
+
+//    public int getBoardValue() {
+//        return BoardValue;
+//    }
 
     public void create() {
         for(DecisionTreeNode node: children) {
@@ -25,7 +30,7 @@ public class DecisionTreeNode {
             for(Integer i: board.getAllPossibleBlackMovers()) {
                 List<Integer> positionTo = board.getBoard().get(i).getPossibleMoves(board, i);
                 for(Integer j: positionTo) {
-                    children.add(new DecisionTreeNode(board.getPossibleBoardState(i, j));
+                    children.add(new DecisionTreeNode(board.getPossibleBoardState(i, j)));
                 }
             }
         }
@@ -34,7 +39,7 @@ public class DecisionTreeNode {
             for(Integer i: board.getAllPossibleWhiteMovers()) {
                 List<Integer> positionTo = board.getBoard().get(i).getPossibleMoves(board, i);
                 for(Integer j: positionTo) {
-                    children.add(new DecisionTreeNode(board.getPossibleBoardState(i, j));
+                    children.add(new DecisionTreeNode(board.getPossibleBoardState(i, j)));
                 }
             }
         }
@@ -51,5 +56,19 @@ public class DecisionTreeNode {
         return maxBoardValue;
     }
 
-    
+    public DecisionTreeNode getBestMove() {
+        if (children.isEmpty())
+            return null;
+        DecisionTreeNode best = null;
+        int maxScore = 0;
+        for(DecisionTreeNode dtn : children) {
+            int score = dtn.bestBoardPosition();
+            if(best == null || score > maxScore) {
+                maxScore = score;
+                best = dtn;
+            }
+        }
+        return best;
+    }
+
 }
