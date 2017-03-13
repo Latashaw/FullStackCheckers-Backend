@@ -10,16 +10,11 @@ import java.util.List;
 public class DecisionTreeNode {
     public LinkedList<DecisionTreeNode> children;
     public Board board;
-    public int BoardValue = AI.evaluateBoardPositionBlack(board);
 
     public DecisionTreeNode(Board board) {
         children = new LinkedList<>();
         this.board = board;
     }
-
-//    public int getBoardValue() {
-//        return BoardValue;
-//    }
 
     public void create() {
         for(DecisionTreeNode node: children) {
@@ -46,8 +41,8 @@ public class DecisionTreeNode {
     }
 
     public int bestBoardPosition() {
-        if(children.isEmpty()) {
-            return AI.evaluateBoardPositionBlack(board);
+        if (children.isEmpty()) {
+            return AI.evaluateBoardBlack(board);
         }
         int maxBoardValue = 0;
         for (DecisionTreeNode dtn : children) {

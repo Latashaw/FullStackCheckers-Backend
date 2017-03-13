@@ -11,6 +11,7 @@ import java.util.List;
  * Created by kevinmccann on 3/10/17.
 */
 public class BoardTest {
+
     Board board;
 
     @Before
@@ -94,7 +95,7 @@ public class BoardTest {
     @Test
     public void getPossibleMovesEmptyTest() throws Exception {
         List<Integer> expected = new ArrayList<>(0);
-        List<Integer> actual = Board.getPossibleMoves(board, 1);
+        List<Integer> actual = Board.getPossibleMoves(board, 6);
         assertEquals(expected, actual);
     }
 
@@ -103,4 +104,18 @@ public class BoardTest {
         Board boardTest = board.copy();
         assertEquals(board.getBoard(), boardTest.getBoard());
     }
+
+    @Test
+    public void getAllPossibleBlackMovers() throws Exception {
+        List actual = board.getAllPossibleBlackMovers();
+        int expected = 7;
+        System.out.println(actual);
+//        assertEquals(expected,actual.size());
+    }
+
+    @Test
+    public void getAllPossibleWhiteMovers() throws Exception {
+
+    }
+
 }

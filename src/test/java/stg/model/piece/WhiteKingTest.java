@@ -3,6 +3,7 @@ package stg.model.piece;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import stg.model.board.Board;
 
 /**
  * Created by rickjackson on 3/8/17.

@@ -189,4 +189,9 @@ public class Board {
         }
         return possibleMovers;
     }
+
+    @Override
+    public String toString() {
+        return board.toString();
+    }
 }
