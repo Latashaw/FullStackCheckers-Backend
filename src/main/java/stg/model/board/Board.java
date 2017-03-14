@@ -1,139 +1,238 @@
 package stg.model.board;
 
-import stg.model.piece.*;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Created by rickjackson on 3/6/17.
  */
-public class    Board {
-    Map<Integer, Piece> board = new HashMap<>(32);
-    int positionTo;
-    int positionFrom;
-    int blackPieceCount;
-    int whitePieceCount;
-    
-    public Board() {
-        for (int i = 1; i <= 32; i++) {
-            if (i <= 12) {
-                board.put(i, new BlackMan());
-            } else if (i >= 21) {
-                board.put(i, new WhiteMan());
-            } else {
-                board.put(i, new Empty());
-            }
-        }
-        blackPieceCount = 12;
-        whitePieceCount = 12;
+public class Board {
+   private int[] board = new int[32];
+    private int positionTo;
+    private int positionFrom;
+   private int blackPieceCount;
+   private int whitePieceCount;
+   private int id = 1;
+
+
+  public   Board(){
+      for(int i = 0; i < 32; i++){
+          if(i <12)
+              board[i] = 1;
+          if(i > 12 && i <= 19)
+              board[i] = 0;
+          if(i >= 20)
+              board[i] = -1;
+      }
+   }
+
+    public int getId() {
+        return id;
     }
-    
-    public void setBoard(Map<Integer, Piece> board) {
-        this.board = board;
+
+    public void setId(int id) {
+        this.id = id;
     }
-    
-    public Map<Integer, Piece> getBoard() {
+
+    public int[] getBoard() {
         return board;
     }
-    
-    public int getPositionFrom() {
-        return positionFrom;
+
+    public void checkPossibleMoves(){
+      if(positionFrom == 8){
+          board[12] = 3;
+          board[13] = 3;
+      }
+
+
     }
-    
-    public void setPositionFrom(int positionFrom) {
-        this.positionFrom = positionFrom;
+
+    public void clearMoves(){
+
+        for(int i = 0; i < 32; i++){
+            if(board[i] == 3)
+                board[i] = 0;
+        }
     }
-    
+
+    public void movePiece(){
+        clearMoves();
+        board[positionTo] = board[positionFrom];
+        board[positionFrom] = 0;
+
+    }
+
+    public void setBoard(int[] board) {
+        this.board = board;
+    }
+
     public int getPositionTo() {
         return positionTo;
     }
-    
+
     public void setPositionTo(int positionTo) {
         this.positionTo = positionTo;
     }
-    
+
+    public int getPositionFrom() {
+        return positionFrom;
+    }
+
+    public void setPositionFrom(int positionFrom) {
+        this.positionFrom = positionFrom;
+    }
+
     public int getBlackPieceCount() {
         return blackPieceCount;
     }
-    
+
     public void setBlackPieceCount(int blackPieceCount) {
         this.blackPieceCount = blackPieceCount;
     }
-    
+
     public int getWhitePieceCount() {
         return whitePieceCount;
     }
-    
+
     public void setWhitePieceCount(int whitePieceCount) {
         this.whitePieceCount = whitePieceCount;
     }
-    
-    public boolean checkPositionEmpty(int position) {
-        return board.get(position) instanceof Empty;
-    }
-    
-    public Map<Integer, Piece> updateBoard(int positionFrom,
-                                               int positionTo) {
-        board.replace(positionTo,
-                      board.get(positionTo),
-                      board.get(positionFrom));
-        board.replace(positionFrom, new Empty());
-        return board;
-    }
-    
-    public Board getPossibleBoardState(int possiblePositionFrom,
-                                       int possiblePositionTo) {
-        Board boardCopy = this.copy();
-        boardCopy.updateBoard(possiblePositionFrom, possiblePositionTo);
-        return boardCopy;
-    }
-    
-    public Board getPossibleBoardState(Board board,
-                                       int possiblePositionFrom,
-                                       int possiblePositionTo) {
-        Board boardCopy = new Board();
-        boardCopy.setBoard(this.board);
-        boardCopy.updateBoard(possiblePositionFrom, possiblePositionTo);
-        return boardCopy;
-    }
-    
-    public Map<Integer, Piece> capturePiece(int position) {
-        if (board.get(position) instanceof WhiteMan
-            || board.get(position) instanceof WhiteKing)
-            whitePieceCount--;
-        if (board.get(position) instanceof BlackMan
-            || board.get(position) instanceof BlackKing)
-            blackPieceCount--;
-        board.replace(position, new Empty());
-        return board;
-    }
-    
-    public boolean checkGameFinished() {
-        return (blackPieceCount == 0 || whitePieceCount == 0);
-    }
-    
-    public boolean isWhiteWinner() {
-        return blackPieceCount == 0;
-    }
-    
-    public boolean isBlackWinner() {
-        return whitePieceCount == 0;
-    }
-    
-    public Board copy() {
-        Board boardCopy = new Board();
-        boardCopy.setBoard(this.board);
-        boardCopy.setBlackPieceCount(getBlackPieceCount());
-        boardCopy.setWhitePieceCount(getWhitePieceCount());
-        return boardCopy;
-    }
-    
-    static public List<Integer> getMoves(Board board, int i) {
-        Piece p = board.getBoard().get(i);
-        return p.getPossibleMoves(board, i);
-    }
-    
+
+    //
+//    public Board() {
+//
+//        blackPieceCount = 12;
+//        whitePieceCount = 12;
+//        startGame();
+//    }
+//
+//    public Board(Board b){
+//        blackPieceCount = 12;
+//        whitePieceCount = 12;
+//        this.board = b.getBoard();
+//    }
+//
+//    public void startGame(){
+//        for (int i = 1; i <= 32; i++) {
+//            if (i <= 12) {
+//                board.put(i, new BlackMan());
+//            } else if (i >= 21) {
+//                board.put(i, new WhiteMan());
+//            } else {
+//                board.put(i, new Empty());
+//            }
+//        }
+//    }
+//
+//    @JsonAnySetter
+//    public void setBoard(Map<Integer, Piece> board) {
+//        this.board = board;
+//    }
+//
+//    private Piece determiner(Piece p){
+//        if(p.equals(new BlackMan()))
+//            return new BlackMan();
+//        else
+//            return new WhiteMan();
+//    }
+//
+//    public Map<Integer, Piece> getBoard() {
+//        return board;
+//    }
+//
+//    public int getPositionFrom() {
+//        return positionFrom;
+//    }
+//
+//    public void setPositionFrom(int positionFrom) {
+//        this.positionFrom = positionFrom;
+//    }
+//
+//    public int getPositionTo() {
+//        return positionTo;
+//    }
+//
+//    public void setPositionTo(int positionTo) {
+//        this.positionTo = positionTo;
+//    }
+//
+//    public int getBlackPieceCount() {
+//        return blackPieceCount;
+//    }
+//
+//    public void setBlackPieceCount(int blackPieceCount) {
+//        this.blackPieceCount = blackPieceCount;
+//    }
+//
+//    public int getWhitePieceCount() {
+//        return whitePieceCount;
+//    }
+//
+//    public void setWhitePieceCount(int whitePieceCount) {
+//        this.whitePieceCount = whitePieceCount;
+//    }
+//
+//    public boolean checkPositionEmpty(int position) {
+//        return board.get(position) instanceof Empty;
+//    }
+//
+//    public Map<Integer, Piece> updateBoard(int positionFrom,
+//                                               int positionTo) {
+//        board.replace(positionTo,
+//                      board.get(positionTo),
+//                      board.get(positionFrom));
+//        board.replace(positionFrom, new Empty());
+//        return board;
+//    }
+//
+////    public Board getPossibleBoardState(int possiblePositionFrom,
+////                                       int possiblePositionTo) {
+////        Board boardCopy = this.copy();
+////        boardCopy.updateBoard(possiblePositionFrom, possiblePositionTo);
+////        return boardCopy;
+////    }
+//
+////    public Board getPossibleBoardState(Board board,
+////                                       int possiblePositionFrom,
+////                                       int possiblePositionTo) {
+////        Board boardCopy = new Board();
+////        boardCopy.setBoard(this.board);
+////        boardCopy.updateBoard(possiblePositionFrom, possiblePositionTo);
+////        return boardCopy;
+////    }
+//
+//    public Map<Integer, Piece> capturePiece(int position) {
+//        if (board.get(position) instanceof WhiteMan
+//            || board.get(position) instanceof WhiteKing)
+//            whitePieceCount--;
+//        if (board.get(position) instanceof BlackMan
+//            || board.get(position) instanceof BlackKing)
+//            blackPieceCount--;
+//        board.replace(position, new Empty());
+//        return board;
+//    }
+//
+//    public boolean checkGameFinished() {
+//        return (blackPieceCount == 0 || whitePieceCount == 0);
+//    }
+//
+////    public boolean isWhiteWinner() {
+////        return blackPieceCount == 0;
+////    }
+////
+////    public boolean isBlackWinner() {
+////        return whitePieceCount == 0;
+////    }
+////
+////    public Board copy() {
+////        Board boardCopy = new Board();
+////        boardCopy.setBoard(this.board);
+////        boardCopy.setBlackPieceCount(getBlackPieceCount());
+////        boardCopy.setWhitePieceCount(getWhitePieceCount());
+////        return boardCopy;
+////    }
+//
+//    static public List<Integer> getMoves(Board board, int i) {
+//        Piece p = board.getBoard().get(i);
+//        return p.getPossibleMoves(board, i);
+//    }
+//
     
 }
