@@ -18,7 +18,7 @@ public class CheckersGameController {
 
             try{
 
-               // CheckersEntity c = new CheckersEntity(board.getBoard(), board.getPositionTo(), board.getPositionFrom(), board.getBlackPieceCount(), board.getWhitePieceCount());
+
                 CheckersEntity updateSave = checkersDOA.findByid(1);
                 updateSave.setBoard(board.getBoard());
                 updateSave.setBlackPieceCount(board.getBlackPieceCount());
@@ -27,7 +27,9 @@ public class CheckersGameController {
 
             }
             catch (Exception e){
-                return "No game Found.";
+                 CheckersEntity c = new CheckersEntity(board.getBoard(), board.getPositionTo(), board.getPositionFrom(), board.getBlackPieceCount(), board.getWhitePieceCount());
+                 checkersDOA.save(c);
+                 return "New Game Saved.";
             }
             return "Game saved!";
         }

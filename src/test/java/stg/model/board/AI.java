@@ -6,7 +6,24 @@ import java.util.Map;
 /**
  * Created by prestonbattin on 3/13/17.
  */
+//
 public class AI {
+
+    public MappedMoves getMoves() {
+        return moves;
+    }
+
+    public void setMoves(MappedMoves moves) {
+        this.moves = moves;
+    }
+
+    public Map<Integer, int[]> getMovesForward() {
+        return movesForward;
+    }
+
+    public void setMovesForward(Map<Integer, int[]> movesForward) {
+        this.movesForward = movesForward;
+    }
 
     MappedMoves moves = new MappedMoves();
    public Map<Integer, int[]> movesForward = new HashMap<>();
@@ -56,6 +73,6 @@ public class AI {
     }
 
    public int levelOneAIMove(Board board){
-
+        return 0;
     }
 }
