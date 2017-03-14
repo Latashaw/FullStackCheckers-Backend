@@ -37,17 +37,42 @@ public class Board {
 
     public void checkPossibleMoves(){
       if(positionFrom == 8){
-          board[12] = 3;
-          board[13] = 3;
+          if(board[12] == 0)
+          board[12] = -3;
+          if(board[13] ==0)
+          board[13] = -3;
+      }
+      else if(positionFrom == 9){
+         if(board[13] ==0)
+          board[13] = -3;
+         if(board[14] == 0)
+          board[14] = -3;
+      }
+
+      else if(positionFrom == 10){
+          if(board[14] == 0)
+              board[14] = -3;
+          if(board[15] ==0)
+              board[15] = -3;
+      }
+
+      else if(positionFrom == 11){
+          if(board[15] == 0)
+              board[15] = -3;
       }
 
 
     }
 
+    public void resetToAndFrom(){
+        this.positionFrom = 0;
+        this.positionTo = 0;
+    }
+
     public void clearMoves(){
 
         for(int i = 0; i < 32; i++){
-            if(board[i] == 3)
+            if(board[i] == -3)
                 board[i] = 0;
         }
     }
@@ -56,6 +81,7 @@ public class Board {
         clearMoves();
         board[positionTo] = board[positionFrom];
         board[positionFrom] = 0;
+        resetToAndFrom();
 
     }
 

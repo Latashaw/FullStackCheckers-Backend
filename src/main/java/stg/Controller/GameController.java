@@ -29,6 +29,7 @@ public class GameController {
     public Board movePiece(@RequestBody Board board){
 
         board.movePiece();
+
         return board;
     }
 
