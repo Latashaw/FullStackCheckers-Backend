@@ -41,6 +41,8 @@ public class Board {
                 board.put(i, new Empty());
             }
         }
+        blackPieceCount = 12;
+        whitePieceCount = 12;
     }
 
     public void setBoard(Map<Integer, Piece> board) {
