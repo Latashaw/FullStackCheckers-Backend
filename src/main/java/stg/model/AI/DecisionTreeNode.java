@@ -51,19 +51,19 @@ public class DecisionTreeNode {
         return maxBoardValue;
     }
 
-    public DecisionTreeNode getBestMove() {
+    public Board getBestMove() {
         if (children.isEmpty())
             return null;
-        DecisionTreeNode best = null;
+        Board bestMove = null;
         int maxScore = 0;
         for(DecisionTreeNode dtn : children) {
             int score = dtn.bestBoardPosition();
-            if(best == null || score > maxScore) {
+            if(bestMove == null || score > maxScore) {
                 maxScore = score;
-                best = dtn;
+                bestMove = dtn.board;
             }
         }
-        return best;
+        return bestMove;
     }
 
 }

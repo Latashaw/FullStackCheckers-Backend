@@ -31,12 +31,16 @@ public class DecisionTreeNodeTest {
 
     @Test
     public void bestBoardPositionTest() {
-
+        testNode.create();
+        int actual = testNode.bestBoardPosition();
+        int expected = 16;
+        assertEquals(expected, actual);
     }
 
     @Test
     public void getBestMoveTest() {
-
+        testNode.create();
+        System.out.println(testNode.getBestMove());
     }
 
 }

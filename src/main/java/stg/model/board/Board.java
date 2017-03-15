@@ -117,8 +117,7 @@ public class Board {
         return board.get(position);
     }
 
-    public Board getPossibleBoardState(int possiblePositionFrom,
-                                       int possiblePositionTo) {
+    public Board getPossibleBoardState(int possiblePositionFrom, int possiblePositionTo) {
         Board boardCopy = this.copy();
         boardCopy.updateBoard(possiblePositionFrom, possiblePositionTo);
         return boardCopy;
