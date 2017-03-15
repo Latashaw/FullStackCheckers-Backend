@@ -99,6 +99,7 @@ public class Board {
                                                int positionTo) {
         movePiece(positionFrom, positionTo);
         boardSpotToEmpty(positionFrom);
+        playerTurn = !playerTurn;
         return board;
     }
 
