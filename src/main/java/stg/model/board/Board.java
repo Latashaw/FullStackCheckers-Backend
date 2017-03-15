@@ -36,7 +36,60 @@ public class Board {
     }
 
     public void checkPossibleMoves(){
-      if(positionFrom == 8){
+
+      if(positionFrom == 0){
+          if(board[4] == 0)
+              board[4] = -3;
+          if(board[5] == 0){
+              board[5] = -3;
+          }
+      }
+
+      else if(positionFrom == 1){
+          if(board[5] == 0)
+              board[5] = -3;
+          if(board[6] ==0)
+              board[6] = -3;
+      }
+
+      else if(positionFrom == 2){
+          if(board[6] == 0)
+              board[6] = -3;
+          if(board[7] ==0)
+              board[7] = -3;
+      }
+
+      else if(positionFrom == 3){
+          if(board[7] == 0)
+              board[7] = -3;
+      }
+
+      else if(positionFrom == 4){
+          if(board[8] == 0)
+              board[8] = -3;
+      }
+
+      else if(positionFrom == 5){
+          if(board[8] == 0)
+              board[8] = -3;
+          if(board[9] ==0)
+              board[9] = -3;
+      }
+
+      else if(positionFrom == 6){
+          if(board[9] == 0)
+              board[9] = -3;
+          if(board[10] ==0)
+              board[10] = -3;
+      }
+      else if(positionFrom == 7){
+          if(board[11] == 0)
+              board[11] = -3;
+          if(board[10] ==0)
+              board[10] = -3;
+      }
+
+     else if(positionFrom == 8){
           if(board[12] == 0)
           board[12] = -3;
           if(board[13] ==0)
