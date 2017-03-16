@@ -26,7 +26,7 @@ public class AITest {
     public void evaluateBoardPieceAmountsBlackNewBoardTest() {
         int expected = 0;
         int actual = AI.evaluateBoardPieceAmountsBlack(board);
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class AITest {
         board.updateBoard(13, 22);
         board.capturePiece(17);
         int actual = AI.evaluateBoardPieceAmountsBlack(board);
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
 
 
@@ -45,7 +45,7 @@ public class AITest {
     public void evaluateBoardPiecePositionsBlackTest() throws Exception {
         int expected = 16;
         int actual = AI.evaluateBoardPiecePositionsBlack(board);
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
 
 }

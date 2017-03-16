@@ -1,8 +1,10 @@
 package stg.model.AI;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import stg.model.board.Board;
+import stg.model.piece.PieceColor;
 
 import static org.junit.Assert.*;
 
@@ -25,13 +27,13 @@ public class DecisionTreeNodeTest {
         testNode.create();
         for(DecisionTreeNode dtn : testNode.children) {
             System.out.println(dtn.board.toString());
-//            assertEquals(7,testNode.children.size());
+            assertEquals(7,testNode.children.size());
         }
     }
 
     @Test
     public void bestBoardPositionTest() {
-        testNode.create();
+        testNode.create(PieceColor.BLACK);
         int actual = testNode.bestBoardPosition();
         int expected = 16;
         assertEquals(expected, actual);
@@ -39,8 +41,7 @@ public class DecisionTreeNodeTest {
 
     @Test
     public void getBestMoveTest() {
-        testNode.create();
-        System.out.println(testNode.getBestMove());
+        testNode.create(
     }
 
 }

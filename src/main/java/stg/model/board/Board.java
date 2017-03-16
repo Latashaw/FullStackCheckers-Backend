@@ -1,199 +1,209 @@
 package stg.model.board;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import stg.controller.Deserialize;
-import stg.model.piece.*;
-import stg.model.piece.*;
+import stg.model.piece.Piece;
+import stg.model.piece.PieceColor;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.List;
 
 /**
- * Created by rickjackson on 3/6/17.
+ * Created by rickjackson on 3/10/17.
  */
-@JsonDeserialize(using = Deserialize.class)
 public class Board {
-    Map<Integer, Piece> board = new HashMap<>(32);
-    int positionTo;
-    int positionFrom;
-    int blackPieceCount;
-    int whitePieceCount;
-    boolean playerTurn;
-
-    public Board(Map<Integer, Piece> board) {
-        this.board = board;
-    }
-
+    Square[][] gameBoard = new Square[8][8];
+    private int[] board = new int[32];
+    private int positionFrom = -1;
+    private int positionTo = -1;
+    private int whiteCount = 0;
+    private int blackCount = 0;
+    private boolean mustJump = false;
+    
     public Board() {
-        newBoardInit();
+        constructNewGameBoard();
+        placePieces(defaultBoardArray());
     }
-
-    public void newBoardInit() {
-        for (int i = 1; i <= 32; i++) {
-            if (i <= 12) {
-                board.put(i, new BlackMan());
-            } else if (i >= 21) {
-                board.put(i, new WhiteMan());
+    
+    public Board(Square[][] gameBoard) {
+        this.gameBoard = gameBoard;
+    }
+    
+    public Board(int[] board) {
+        constructNewGameBoard();
+        placePieces(board);
+    }
+    
+    int[] blankIntRow() {
+        int[] r = {0, 0, 0, 0, 0, 0, 0, 0};
+        return r;
+    }
+    
+    Square[] blankSquareRow() {
+        Square[] s = {null, null, null, null, null, null, null, null};
+        return s;
+    }
+    
+    public int[] blankBoardArray() {
+        int[] a = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        return a;
+    }
+    
+    public int[] defaultBoardArray() {
+        int[] a = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                   0, 0, 0, 0, 0, 0, 0, 0,
+                   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+        return a;
+    }
+    
+    // private Square[] newRow(Square square, int start) {
+    //     Square[] s = blankSquareRow();
+    //
+    //     for (int i = start; i < 8; i += 2) {
+    //         s[i] = square;
+    //     }
+    //     return s;
+    // }
+    //
+    // private Square[] newRow(Square square, Piece piece, int start) {
+    //     Square[] s = blankSquareRow();
+    //
+    //     for (int i = start; i < 8; i += 2) {
+    //         s[i] = square;
+    //         s[i].placePiece(piece);
+    //     }
+    //     return s;
+    // }
+    
+    // Game States
+    
+    private void constructNewGameBoard() {
+        for (int i = 0; i < 8; i++) {
+            if (isEven(i)) {
+                for (int j = 1; j < 8; j++) {
+                    gameBoard[i][j] = new Square(this, i, j);
+                }
             } else {
-                board.put(i, new Empty());
+                for (int j = 0; j < 8; j++) {
+                    gameBoard[i][j] = new Square(this, i, j);
+                }
             }
         }
-        blackPieceCount = 12;
-        whitePieceCount = 12;
     }
-
-    public void setBoard(Map<Integer, Piece> board) {
-        this.board = board;
+    
+    private Square[][] placePieces(int[] board) {
+        for (int i = 0; i < board.length; i++) {
+            int[] c = Square.getCoordinatesFromIndex(i);
+            gameBoard[c[0]][c[1]].placePiece(new Piece(board[i]));
+        }
+        return gameBoard;
     }
-
-    public Map<Integer, Piece> getBoard() {
+    
+    private static boolean isEven(int i) {
+        return i % 2 == 0;
+    }
+    
+    // Query Operations
+    
+    public int[] getBoard() {
+        for (int i = 0; i < 32; i++) {
+            board[i] = getSquare(i).value();
+        }
         return board;
     }
+    
+    public void setBoard(int[] board) {
+        this.board = board;
+        setGameBoard(placePieces(board));
+    }
+    
+    public Square[][] getGameBoard() {
+        return gameBoard;
+    }
+    
+    public void setGameBoard(Square[][] gameBoard) {
+        this.gameBoard = gameBoard;
+        getBoard();
+    }
+    
+    public Square getSquare(int[] i) {
+        return gameBoard[i[0]][i[1]];
+    }
+    
+    public Square getSquare(int i) {
+        return getSquare(Square.getCoordinatesFromIndex(i));
+    }
+    
+    public Square getSquare(int row, int col) {
+        return gameBoard[row][col];
+    }
+    
+    public boolean isEmpty(int i) {
+        return getSquare(i).isEmpty();
+    }
+    
+    public List<Integer> getAllPossibleMovers(PieceColor color) {
+        mustJumpThisRound(color);
+        int[] board = getBoard();
+        List<Integer> movers = new ArrayList<>(32);
+        
+        for (int i = 0; i < 32; i++) {
+            if (board[i] != 0 && getSquare(i).getPiece()
+                                             .getColor().equals(color)) {
+                if (getSquare(i).getPiece().move
+                            .getAvailableMoves(mustJump).size() != 0) {
+                    movers.add(i);
+                }
+            }
+        }
+        return movers;
+    }
+    
+    public boolean mustJumpThisRound(PieceColor color) {
+        mustJump = false;
+        int[] board = getBoard();
+        
+        for (int i = 0; i < 32; i++) {
+            if (board[i] != 0 && getSquare(i).getPiece().getColor()
+                                             .equals(color)) {
+                if (getSquare(i).getPiece().move.mustJump()) {
+                    mustJump = true;
+                }
+            }
+        }
+        return mustJump;
+    }
 
-    public int getPositionFrom() {
-        return positionFrom;
+    public Piece getPiece(int index) {
+        return getSquare(index).getPiece();
+    }
+    
+    public void movePiece(int from, int to) {
+        getPiece(from).move.move(to);
+    }
+    
+    public List<Integer> getAllMovesForPiece(int index) {
+        return getPiece(index).move.getAvailableMoves(mustJump);
+    }
+
+    public Piece[] getAllPiecesOnGameboard() {
+        Piece[] pieces = new Piece[24];
+        for (int i = 0; i < 32; i++) {
+            pieces[i] = getSquare(i).getPiece();
+        }
+        return pieces;
+    }
+
+    public Board createPossibleBoardState(int positionFrom, int positionTo) {
+        Board boardCopy = new Board(this.gameBoard);
+        boardCopy.movePiece(positionFrom, positionTo);
+        return boardCopy;
     }
 
     public void setPositionFrom(int positionFrom) {
         this.positionFrom = positionFrom;
     }
 
-    public int getPositionTo() {
-        return positionTo;
-    }
-
-    public void setPositionTo(int positionTo) {
-        this.positionTo = positionTo;
-    }
-
-    public int getBlackPieceCount() {
-        return blackPieceCount;
-    }
-
-    public void setBlackPieceCount(int blackPieceCount) {
-        this.blackPieceCount = blackPieceCount;
-    }
-
-    public int getWhitePieceCount() {
-        return whitePieceCount;
-    }
-
-    public void setWhitePieceCount(int whitePieceCount) {
-        this.whitePieceCount = whitePieceCount;
-    }
-
-    public boolean isPlayerTurn() {
-        return playerTurn;
-    }
-
-    public void setPlayerTurn(boolean playerTurn) {
-        this.playerTurn = playerTurn;
-    }
-
-    public boolean checkPositionEmpty(int position) {
-        return board.get(position) instanceof Empty;
-    }
-
-    public Map<Integer, Piece> updateBoard(int positionFrom,
-                                               int positionTo) {
-        movePiece(positionFrom, positionTo);
-        boardSpotToEmpty(positionFrom);
-        playerTurn = !playerTurn;
-        return board;
-    }
-
-    public Map<Integer, Piece> movePiece(int positionFrom, int positionTo) {
-        board.replace(positionTo, board.get(positionTo), board.get(positionFrom));
-        return board;
-    }
-
-    public Map<Integer, Piece> boardSpotToEmpty(int positionFrom) {
-        board.replace(positionFrom, new Empty());
-        return board;
-    }
-
-    public Piece getPieceAtSpot(int position) {
-        return board.get(position);
-    }
-
-    public Board getPossibleBoardState(int possiblePositionFrom, int possiblePositionTo) {
-        Board boardCopy = this.copy();
-        boardCopy.updateBoard(possiblePositionFrom, possiblePositionTo);
-        return boardCopy;
-    }
-
-    public Map<Integer, Piece> capturePiece(int position) {
-        if (board.get(position) instanceof WhiteMan
-            || board.get(position) instanceof WhiteKing)
-            whitePieceCount--;
-        if (board.get(position) instanceof BlackMan
-            || board.get(position) instanceof BlackKing)
-            blackPieceCount--;
-        boardSpotToEmpty(position);
-        return board;
-    }
-
-    public boolean checkGameFinished() {
-        return (blackPieceCount == 0 || whitePieceCount == 0);
-    }
-
-    public boolean isWhiteWinner() {
-        return blackPieceCount == 0;
-    }
-
-    public boolean isBlackWinner() {
-        return whitePieceCount == 0;
-    }
-
-    public Board copy() {
-        Board boardCopy = new Board();
-        boardCopy.setBoard(this.board);
-        boardCopy.setBlackPieceCount(getBlackPieceCount());
-        boardCopy.setWhitePieceCount(getWhitePieceCount());
-        return boardCopy;
-    }
-
-    public static List<Integer> getPossibleMoves(Board board, int i) {
-        Piece p = board.getBoard().get(i);
-        return p.getPossibleMoves(board, i);
-    }
-
-    @Override
-    public int hashCode() {
-        return board.hashCode();
-    }
-
-    public boolean equals(Board obj) {
-        return board.equals(obj.board);
-    }
-
-    public List<Integer> getAllPossibleBlackMovers() {
-        List<Integer> possibleMovers = new ArrayList<>();
-        for (int i = 1; i<getBoard().size(); i++) {
-            if (getBoard().get(i) instanceof BlackMan || getBoard().get(i) instanceof BlackKing) {
-                if (!getBoard().get(i).getPossibleMoves(this, i).isEmpty())
-                    possibleMovers.add(i);
-            }
-        }
-        return possibleMovers;
-    }
-
-    public List<Integer> getAllPossibleWhiteMovers() {
-        List<Integer> possibleMovers = new ArrayList<>();
-        for (int i = 1; i<getBoard().size(); i++) {
-            if (getBoard().get(i) instanceof WhiteMan || getBoard().get(i) instanceof WhiteKing) {
-                if (!getBoard().get(i).getPossibleMoves(this, i).isEmpty())
-                    possibleMovers.add(i);
-            }
-        }
-        return possibleMovers;
-    }
-
-    @Override
-    public String toString() {
-        return board.toString();
+    public int getPositionFrom() {
+        return positionFrom;
     }
 }

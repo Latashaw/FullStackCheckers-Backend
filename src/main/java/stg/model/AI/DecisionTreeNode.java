@@ -1,69 +1,80 @@
 package stg.model.AI;
 
 import stg.model.board.Board;
+import stg.model.piece.Piece;
+import stg.model.piece.PieceColor;
+
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by kevinmccann on 3/8/17.
+ * Created by kevinmccann on 3/15/17.
  */
 public class DecisionTreeNode {
-    public LinkedList<DecisionTreeNode> children;
-    public Board board;
+    LinkedList<DecisionTreeNode> children;
+    Board board;
 
     public DecisionTreeNode(Board board) {
         children = new LinkedList<>();
         this.board = board;
     }
 
-    public void create() {
-        for(DecisionTreeNode node: children) {
-            node.create();
+    public void create(PieceColor color) throws NullPointerException {
+        for( DecisionTreeNode node : children) {
+            node.create(color == PieceColor.BLACK ? PieceColor.WHITE : PieceColor.BLACK);
         }
-
-        if(children.isEmpty() && !board.isPlayerTurn()) {
-            for(Integer i: board.getAllPossibleBlackMovers()) {
-                List<Integer> positionTo = board.getBoard().get(i).getPossibleMoves(board, i);
-                for(Integer j: positionTo) {
-                    children.add(new DecisionTreeNode(board.getPossibleBoardState(i, j)));
-                }
-            }
-        }
-
-        if(children.isEmpty() && board.isPlayerTurn()) {
-            for(Integer i: board.getAllPossibleWhiteMovers()) {
-                List<Integer> positionTo = board.getBoard().get(i).getPossibleMoves(board, i);
-                for(Integer j: positionTo) {
-                    children.add(new DecisionTreeNode(board.getPossibleBoardState(i, j)));
+        if(children.isEmpty()) {
+            List<Integer> possibleMovers = board.getAllPossibleMovers(color);
+            for(Integer pieceIndex : possibleMovers) {
+                List<Integer> possibleMoves = board.getAllMovesForPiece(pieceIndex);
+                for (int positionTo : possibleMoves) {
+                    Board move;
+                    try {
+                        move = board.createPossibleBoardState(pieceIndex, positionTo);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                        continue;
+                    }
+                    children.add(new DecisionTreeNode(move));
                 }
             }
         }
     }
 
-    public int bestBoardPosition() {
+    public int bestBoardPosition(PieceColor color) {
+        if(children.isEmpty()) {
+            return AI.evaluateBoard(board, color);
+        }
+
+        if(color == PieceColor.BLACK) {
+            int max = -1000;
+            for (DecisionTreeNode node : children) {
+                max = Math.max(max, node.bestBoardPosition(PieceColor.WHITE));
+            }
+            return max;
+        } else /*(color == PieceColor.WHITE)*/ {
+            int min = 1000;
+            for(DecisionTreeNode node : children) {
+                min = Math.min(min, node.bestBoardPosition(PieceColor.WHITE));
+            }
+            return min;
+        }
+    }
+
+    public DecisionTreeNode getMove(PieceColor color) {
         if (children.isEmpty()) {
-            return AI.evaluateBoardBlack(board);
-        }
-        int maxBoardValue = 0;
-        for (DecisionTreeNode dtn : children) {
-            maxBoardValue = Math.max(maxBoardValue, dtn.bestBoardPosition());
-        }
-        return maxBoardValue;
-    }
-
-    public Board getBestMove() {
-        if (children.isEmpty())
             return null;
-        Board bestMove = null;
-        int maxScore = 0;
-        for(DecisionTreeNode dtn : children) {
-            int score = dtn.bestBoardPosition();
-            if(bestMove == null || score > maxScore) {
+        }
+
+        DecisionTreeNode best = null;
+        int maxScore = (color == PieceColor.BLACK ? -10000 : 10000);
+        for(DecisionTreeNode node : children) {
+            int score = node.bestBoardPosition(PieceColor.BLACK);
+            if(best == null || score * (color == PieceColor.BLACK ? 1 : -1) > maxScore * (color == PieceColor.BLACK ? 1 : -1)) {
                 maxScore = score;
-                bestMove = dtn.board;
+                best = node;
             }
         }
-        return bestMove;
+        return best;
     }
-
 }

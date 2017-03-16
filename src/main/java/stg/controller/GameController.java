@@ -54,8 +54,8 @@ public @ResponseBody List<Integer> getBoard(Board board) {
     Board copy = board;
     board.setPositionFrom(10);
     Logger logger = Logger.getLogger(GameController.class);
-    logger.debug(copy.getPossibleMoves(copy, copy.getPositionFrom()));
-    return copy.getPossibleMoves(copy, copy.getPositionFrom());
+    logger.debug(copy.getAllMovesForPiece(copy.getPositionFrom()));
+    return copy.getAllMovesForPiece(copy.getPositionFrom());
 }
     
 
