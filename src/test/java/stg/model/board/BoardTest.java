@@ -2,120 +2,139 @@ package stg.model.board;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
-import java.util.ArrayList;
+import stg.model.piece.Piece;
+import stg.model.piece.PieceColor;
+
 import java.util.List;
 
 /**
- * Created by kevinmccann on 3/10/17.
-*/
+ * Created by rickjackson on 3/10/17.
+ */
 public class BoardTest {
-
-    Board board;
-
+    private Board board;
+    
     @Before
-    public void setUp() {
-        board = new Board();
+    public void setup() {
+        this.board = new Board();
     }
-
+    
     @Test
-    public void checkPositionEmptyTest() throws Exception {
-        boolean expected = true;
-        boolean actual = board.checkPositionEmpty(13);
-        Assert.assertEquals(expected, actual);
+    public void blankIntRowTest() {
+        int[] r = {0, 0, 0, 0, 0, 0, 0, 0};
+        assertArrayEquals(r, board.blankIntRow());
     }
-
+    
     @Test
-    public void checkPositionEmptyFalseTest() throws Exception {
-        boolean expected = false;
-        boolean actual = board.checkPositionEmpty(12);
-        Assert.assertEquals(expected, actual);
+    public void blankSquareRowTest() {
+        Square[] s = {null, null, null, null, null, null, null, null};
+        assertArrayEquals(s, board.blankSquareRow());
     }
-
-
+    
     @Test
-    public void updateBoardTest() throws Exception {
-        board.updateBoard(12,15);
-        Assert.assertTrue(board.checkPositionEmpty(12));
-        Assert.assertFalse(board.checkPositionEmpty(15));
+    public void blankBoardArrayTest() {
+        int[] a = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        assertArrayEquals(a, board.blankBoardArray());
     }
-
+    
     @Test
-    public void movePieceTest() throws Exception {
-        board.movePiece(21,16);
-        Assert.assertFalse(board.checkPositionEmpty(16));
+    public void defaultBoardArrayTest() {
+        int[] a = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                   0, 0, 0, 0, 0, 0, 0, 0,
+                   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+        assertArrayEquals(a, board.defaultBoardArray());
     }
-
+    
     @Test
-    public void boardSpotToEmptyTest() throws Exception {
-        board.boardSpotToEmpty(1);
-        Assert.assertTrue(board.checkPositionEmpty(1));
+    public void setBoardTest() {
+        int[] a = {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                   0, 0, 0, 0, 0, 0, 0, 0,
+                   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+        assertEquals(1, board.getBoard()[0]);
+        board.setBoard(a);
+        assertEquals(0, board.getBoard()[0]);
     }
-
+    
     @Test
-    public void capturePieceTest() throws Exception {
-        board.capturePiece(12);
-        Assert.assertTrue(board.checkPositionEmpty(12));
-        assertEquals(11, board.getBlackPieceCount());
+    public void getGameBoardTest() {
+        Square s = board.getSquare(0);
+        assertEquals(s, board.getGameBoard()[0][1]);
     }
-
+    
     @Test
-    public void checkGameFinishedTest() throws Exception {
-        for(int i = 1; i<=12; i++) {
-            board.capturePiece(i);
-        }
-        Assert.assertTrue(board.checkGameFinished());
+    public void getSquareFromCoordinates() {
+        int[] c = {0, 1};
+        Square s = board.getSquare(0);
+        assertEquals(s, board.getSquare(c));
     }
-
+    
     @Test
-    public void isWhiteWinnerTest() throws Exception {
-        for(int i = 1; i<=12; i++) {
-            board.capturePiece(i);
-        }
-        Assert.assertTrue(board.isWhiteWinner());
+    public void getSquareFromRowAndCol() {
+        assertNotNull(board.getSquare(0, 1));
     }
-
+    
     @Test
-    public void isBlackWinnerTest() throws Exception {
-        for(int i = 20; i<=32; i++) {
-            board.capturePiece(i);
-        }
-        Assert.assertTrue(board.isBlackWinner());
+    public void getSquareFromIndex() {
+        Square s = board.getGameBoard()[0][1];
+        assertEquals(s, board.getSquare(0));
     }
-
+    
     @Test
-    public void getPossibleMovesTest() throws Exception {
-        List<Integer> expected = new ArrayList<>(1);
-        expected.add(16);
-        List<Integer> actual = Board.getPossibleMoves(board, 12);
-        Assert.assertEquals(expected, actual);
+    public void getBoardFromDefaultState() {
+        int[] b = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                   0, 0, 0, 0, 0, 0, 0, 0,
+                   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+        assertArrayEquals(b, board.getBoard());
     }
-
+    
+    
     @Test
-    public void getPossibleMovesEmptyTest() throws Exception {
-        List<Integer> expected = new ArrayList<>(0);
-        List<Integer> actual = Board.getPossibleMoves(board, 6);
-        Assert.assertEquals(expected, actual);
+    public void squareAtIndex0IsNotEmpty() {
+        assertFalse(board.isEmpty(0));
     }
-
+    
     @Test
-    public void copyTest() {
-        Board boardTest = board.copy();
-        assertEquals(board.getBoard(), boardTest.getBoard());
+    public void squareAtIndex12IsEmpty() {
+        assertTrue(board.isEmpty(12));
     }
-
+    
     @Test
-    public void getAllPossibleBlackMovers() throws Exception {
-        List actual = board.getAllPossibleBlackMovers();
-        int expected = 7;
-        System.out.println(actual);
-//        assertEquals(expected,actual.size());
+    public void mustJumpThisRoundTest() {
+        assertFalse(board.mustJumpThisRound(PieceColor.BLACK));
     }
-
+    
     @Test
-    public void getAllPossibleWhiteMovers() throws Exception {
-
+    public void getAllPossibleBlackMovers() {
+        List<Integer> movers = board.getAllPossibleMovers(PieceColor.BLACK);
+        assertEquals(8, (int) movers.get(0));
+        assertEquals(4, movers.size());
     }
-
+    
+    @Test
+    public void getAllPossibleWhiteMovers() {
+        List<Integer> movers = board.getAllPossibleMovers(PieceColor.WHITE);
+        assertEquals(20, (int) movers.get(0));
+        assertEquals(4, movers.size());
+    }
+    
+    @Test
+    public void getPieceFromIndex() {
+        Piece p = board.getSquare(0).getPiece();
+        assertEquals(p, board.getPiece(0));
+    }
+    
+    @Test
+    public void movePieceFromIndex() {
+        Piece p = board.getSquare(22).getPiece();
+        board.movePiece(22,17);
+        assertEquals(p, board.getPiece(17));
+    }
+    
+    @Test
+    public void getAllMovesForPieceAtIndex() {
+        List<Integer> m = board.getAllMovesForPiece(22);
+        assertEquals(17, (int) m.get(0));
+        assertEquals(18, (int) m.get(1));
+    }
 }
