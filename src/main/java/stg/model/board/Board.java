@@ -114,6 +114,39 @@ public class Board {
               board[15] = -3;
       }
 
+      else if(positionFrom == 12){
+          if(board[16] == 0)
+              board[16] = -3;
+      }
+      else if(positionFrom == 13){
+          if(board[16] == 0)
+              board[16] = -3;
+          if(board[17] ==0)
+              board[17] = -3;
+      }
+      else if(positionFrom == 14){
+          if(board[18] == 0)
+              board[18] = -3;
+          if(board[17] ==0)
+              board[17] = -3;
+      }
+      else if(positionFrom == 15){
+          if(board[18] == 0)
+              board[18] = -3;
+          if(board[19] ==0)
+              board[19] = -3;
+      }
+      else if(positionFrom == 16){
+          if(board[20] ==0)
+              board[20] = -3;
+      }
+      else if(positionFrom == 17){
+          if(board[20] == 0)
+              board[20] = -3;
+          if(board[21] ==0)
+              board[21] = -3;
+      }
+
 
     }
 

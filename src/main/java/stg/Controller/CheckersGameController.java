@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import stg.model.board.Board;
 
+
+
 /**
  * Created by prestonbattin on 3/12/17.
  */
@@ -17,7 +19,6 @@ public class CheckersGameController {
     @ResponseBody public String create(@RequestBody Board board){
 
             try{
-
 
                 CheckersEntity updateSave = checkersDOA.findByid(1);
                 updateSave.setBoard(board.getBoard());
